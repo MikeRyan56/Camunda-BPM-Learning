@@ -15,3 +15,5 @@ camunda:
 spring:
   application:
     name: abc
+
+#    server.servlet.context-path
