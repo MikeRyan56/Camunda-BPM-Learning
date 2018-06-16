@@ -1,0 +1,10 @@
+camunda:
+  bpm:
+    filter:
+        create: All tasks
+    admin-user:
+      id: admin
+      password: rules
+      firstName: Admin
+      lastName: istrator
+      email: mikeryan56@gmail.com
