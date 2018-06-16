@@ -1,5 +1,7 @@
 camunda:
   bpm:
+    history-level: Full
+    id-generator: strong
     filter:
         create: All tasks
     admin-user:
@@ -8,3 +10,8 @@ camunda:
       firstName: Admin
       lastName: istrator
       email: mikeryan56@gmail.com
+
+
+spring:
+  application:
+    name: abc
