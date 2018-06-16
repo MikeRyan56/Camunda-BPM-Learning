@@ -9,7 +9,7 @@
       <bpmn:incoming>SequenceFlow_1f61zm3</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1f61zm3" sourceRef="Task_1mbvqdn" targetRef="EndEvent_0a89utn" />
-    <bpmn:userTask id="Task_1mbvqdn">
+    <bpmn:userTask id="Task_1mbvqdn" name="Review of Color Choice" camunda:formKey="embedded:app:webapp/forms/review.html" camunda:assignee="admin">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_Color" label="Favorite Color" type="string">
@@ -20,6 +20,11 @@
           <camunda:formField id="comment" label="Comment" type="string">
             <camunda:validation>
               <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="FormField_myReason" label="Their Reason" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
         </camunda:formData>
