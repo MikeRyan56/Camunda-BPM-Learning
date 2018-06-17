@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_051x1y6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+  <bpmn:process id="process_enum" name="Process Enum" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_Enum_1" label="FormField_Enum_1" type="enum">
+            <camunda:value id="Value_13n8ul0" name="A" />
+            <camunda:value id="Value_1bs5ses" name="B" />
+            <camunda:value id="Value_1t7tkq2" name="C" />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_108bqdq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_108bqdq" sourceRef="StartEvent_1" targetRef="Task_1u2ioll" />
+    <bpmn:endEvent id="EndEvent_1b8d3fj">
+      <bpmn:incoming>SequenceFlow_19t429v</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_19t429v" sourceRef="Task_1u2ioll" targetRef="EndEvent_1b8d3fj" />
+    <bpmn:userTask id="Task_1u2ioll">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_Enum_1" label="FormField_Enum_1" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+            <camunda:value id="Value_13n8ul0" name="A" />
+            <camunda:value id="Value_1bs5ses" name="B" />
+            <camunda:value id="Value_1t7tkq2" name="C" />
+          </camunda:formField>
+          <camunda:formField id="FormField_Enum_2" label="FormField_Enum_2" type="enum">
+            <camunda:value id="Value_03m43kv" name="X" />
+            <camunda:value id="Value_2b037c7" name="Y" />
+            <camunda:value id="Value_0smcem9" name="Z" />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_108bqdq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19t429v</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_enum">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_108bqdq_di" bpmnElement="SequenceFlow_108bqdq">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1b8d3fj_di" bpmnElement="EndEvent_1b8d3fj">
+        <dc:Bounds x="409" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19t429v_di" bpmnElement="SequenceFlow_19t429v">
+        <di:waypoint x="359" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0vpke8v_di" bpmnElement="Task_1u2ioll">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
