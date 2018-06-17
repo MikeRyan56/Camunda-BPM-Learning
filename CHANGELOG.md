@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [0.1.1] - 2018-06-17
+### Added
+- Adding simple enum example (learning)
+
+### Changed
+- increment of version
+
 ## [0.1.0] - 2018-06-17
 ### Added
 - Nothing

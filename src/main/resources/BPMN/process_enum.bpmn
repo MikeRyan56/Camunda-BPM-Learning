@@ -18,17 +18,9 @@
       <bpmn:incoming>SequenceFlow_19t429v</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_19t429v" sourceRef="Task_1u2ioll" targetRef="EndEvent_1b8d3fj" />
-    <bpmn:userTask id="Task_1u2ioll">
+    <bpmn:userTask id="Task_1u2ioll" name="Second Enum Task">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_Enum_1" label="FormField_Enum_1" type="enum">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-            <camunda:value id="Value_13n8ul0" name="A" />
-            <camunda:value id="Value_1bs5ses" name="B" />
-            <camunda:value id="Value_1t7tkq2" name="C" />
-          </camunda:formField>
           <camunda:formField id="FormField_Enum_2" label="FormField_Enum_2" type="enum">
             <camunda:value id="Value_03m43kv" name="X" />
             <camunda:value id="Value_2b037c7" name="Y" />
