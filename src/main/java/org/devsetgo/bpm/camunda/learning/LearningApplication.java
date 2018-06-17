@@ -8,7 +8,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.camunda.bpm.spring.boot.starter.event.PostDeployEvent;
 
-@EnableProcessApplication
+@EnableProcessApplication  // ("myProcessApplicationName")
 @SpringBootApplication
 public class LearningApplication {
 
@@ -18,4 +18,6 @@ public class LearningApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LearningApplication.class, args);
 	}
+
+
 }
