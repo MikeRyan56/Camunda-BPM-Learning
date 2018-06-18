@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0n7god7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="Decision_color" name="Decision 1">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Color" camunda:inputVariable="FormField_Color">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0xz7l6p" label="Preset of Comment" name="comment" typeRef="string" />
+      <rule id="DecisionRule_1bxzlz4">
+        <inputEntry id="UnaryTests_1avsiry">
+          <text>"Blue"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0j3y91r">
+          <text>"Blue is awesome!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ledwtt">
+        <inputEntry id="UnaryTests_1hhek6d">
+          <text>"Purple"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r2dhxn">
+          <text>"Well I liked Purple Rain, so I will let this go."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_109ve98">
+        <inputEntry id="UnaryTests_04mmkxo">
+          <text>"Green"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01r71l2">
+          <text>"Irish colors are totally awesome!"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l0eqf1">
+        <inputEntry id="UnaryTests_1d0lfkm">
+          <text>"Red"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s802t2">
+          <text>"My wife likes Red, so OK!"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

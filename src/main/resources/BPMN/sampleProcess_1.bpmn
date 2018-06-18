@@ -14,9 +14,9 @@
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_0st9uco</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0st9uco" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_08eat85" />
+    <bpmn:sequenceFlow id="SequenceFlow_0st9uco" sourceRef="StartEvent_1" targetRef="Task_1agg8g0" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_08eat85">
-      <bpmn:incoming>SequenceFlow_0st9uco</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0d1wfm8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1x5mg8r</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0yqkak0</bpmn:outgoing>
     </bpmn:exclusiveGateway>
@@ -25,17 +25,16 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1x5mg8r" name="Not Blue" sourceRef="ExclusiveGateway_08eat85" targetRef="Task_0i63x1l">
       <bpmn:documentation>You have not selected my favorite color</bpmn:documentation>
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color!="Blue"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color=="Yellow"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0yqkak0" name="Yeah Blue" sourceRef="ExclusiveGateway_08eat85" targetRef="Task_0efjigm">
       <bpmn:documentation>Selecting Blue makes me happy... and you should make me happy,</bpmn:documentation>
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color=="Blue"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1ywekcs" sourceRef="Task_0efjigm" targetRef="EndEvent_1ou1x9b" />
     <bpmn:serviceTask id="Task_0efjigm" name="Send email " camunda:delegateExpression="#{sendEmail}">
       <bpmn:documentation>send an email notifying user that Blue is awesome!</bpmn:documentation>
-      <bpmn:incoming>SequenceFlow_0yqkak0</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1hiqxzx</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0yqkak0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ywekcs</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1hiqxzx" sourceRef="Task_0i63x1l" targetRef="Task_0efjigm" />
@@ -43,10 +42,16 @@
       <bpmn:extensionElements>
         <camunda:in variables="all" />
         <camunda:out variables="all" />
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1x5mg8r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hiqxzx</bpmn:outgoing>
     </bpmn:callActivity>
+    <bpmn:businessRuleTask id="Task_1agg8g0" name="color decision" camunda:resultVariable="comment" camunda:decisionRef="Decision_color" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_0st9uco</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0d1wfm8</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0d1wfm8" sourceRef="Task_1agg8g0" targetRef="ExclusiveGateway_08eat85" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sampleProcess_1">
@@ -55,41 +60,50 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0st9uco_di" bpmnElement="SequenceFlow_0st9uco">
         <di:waypoint x="209" y="120" />
-        <di:waypoint x="292" y="120" />
+        <di:waypoint x="310" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_08eat85_di" bpmnElement="ExclusiveGateway_08eat85" isMarkerVisible="true">
-        <dc:Bounds x="292" y="95" width="50" height="50" />
+        <dc:Bounds x="537" y="95" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1ou1x9b_di" bpmnElement="EndEvent_1ou1x9b" bioc:stroke="#E53935" bioc:fill="#FFCDD2">
         <dc:Bounds x="900" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1x5mg8r_di" bpmnElement="SequenceFlow_1x5mg8r">
-        <di:waypoint x="317" y="145" />
-        <di:waypoint x="317" y="230" />
-        <di:waypoint x="440" y="230" />
+        <di:waypoint x="562" y="145" />
+        <di:waypoint x="562" y="215" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="349" y="215" width="43" height="14" />
+          <dc:Bounds x="549" y="168" width="43" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0yqkak0_di" bpmnElement="SequenceFlow_0yqkak0">
-        <di:waypoint x="342" y="120" />
-        <di:waypoint x="681" y="120" />
+        <di:waypoint x="587" y="120" />
+        <di:waypoint x="714" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="610" y="92" width="49" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1ywekcs_di" bpmnElement="SequenceFlow_1ywekcs">
-        <di:waypoint x="781" y="120" />
+        <di:waypoint x="818" y="120" />
         <di:waypoint x="900" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1bie4io_di" bpmnElement="Task_0efjigm" bioc:stroke="#FB8C00" bioc:fill="#FFE0B2">
-        <dc:Bounds x="681" y="80" width="100" height="80" />
+        <dc:Bounds x="718" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1hiqxzx_di" bpmnElement="SequenceFlow_1hiqxzx">
-        <di:waypoint x="540" y="230" />
-        <di:waypoint x="731" y="230" />
-        <di:waypoint x="731" y="166" />
+        <di:waypoint x="612" y="255" />
+        <di:waypoint x="768" y="255" />
+        <di:waypoint x="768" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="CallActivity_0fgs3wo_di" bpmnElement="Task_0i63x1l" bioc:stroke="#1E88E5" bioc:fill="#BBDEFB">
-        <dc:Bounds x="440" y="190" width="100" height="80" />
+        <dc:Bounds x="512" y="215" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BusinessRuleTask_0gzqjqg_di" bpmnElement="Task_1agg8g0">
+        <dc:Bounds x="310" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0d1wfm8_di" bpmnElement="SequenceFlow_0d1wfm8">
+        <di:waypoint x="410" y="120" />
+        <di:waypoint x="537" y="120" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
