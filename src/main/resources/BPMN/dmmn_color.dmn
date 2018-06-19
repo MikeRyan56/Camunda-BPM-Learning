@@ -43,6 +43,14 @@
           <text>"My wife likes Red, so OK!"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0gn56h1">
+        <inputEntry id="UnaryTests_1kc6m05">
+          <text>"Yellow"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17ev7v3">
+          <text>"OMG you like yellow?"</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
 </definitions>
