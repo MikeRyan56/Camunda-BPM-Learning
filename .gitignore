@@ -1,7 +1,9 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 /.vscode/
-
+# Configuration Files
+application.properties
+application.yml
 ### STS ###
 .apt_generated
 .classpath
