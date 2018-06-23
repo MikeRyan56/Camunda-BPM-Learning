@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 - removed condition type for expression language ${FormField_Color=="Blue"} so it acts as default path
-
+- loop cardinality in Call Activity not needed in this scenerio
 ## [0.1.1] - 2018-06-17
 ### Added
 - Adding simple enum example (learning)
