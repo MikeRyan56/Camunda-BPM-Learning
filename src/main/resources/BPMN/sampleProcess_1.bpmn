@@ -116,7 +116,7 @@
         <di:waypoint x="612" y="270" />
         <di:waypoint x="718" y="270" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="CallActivity_1fjnqwh_di" bpmnElement="Task_0jzdp55">
+      <bpmndi:BPMNShape id="CallActivity_1fjnqwh_di" bpmnElement="Task_0jzdp55" bioc:stroke="#1E88E5" bioc:fill="#BBDEFB">
         <dc:Bounds x="718" y="230" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
