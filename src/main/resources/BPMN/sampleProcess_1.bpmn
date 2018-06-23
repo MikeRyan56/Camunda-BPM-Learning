@@ -2,6 +2,7 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_11hrmlt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.0">
   <bpmn:process id="sampleProcess_1" name="Sample Process 1" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Start" camunda:formKey="embedded:app:forms/start.html">
+      <bpmn:documentation>This is a start process. It has an HTML form and two properties to pass off to Decion Table </bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_Color" label="Favorite Color" type="string">
@@ -16,40 +17,46 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0st9uco" sourceRef="StartEvent_1" targetRef="Task_1agg8g0" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_08eat85">
+      <bpmn:documentation>exclusive decion to route to reivew step or send to email step.</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_0d1wfm8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1x5mg8r</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0yqkak0</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_1ou1x9b">
+    <bpmn:endEvent id="EndEvent_1ou1x9b" name="end of process">
+      <bpmn:documentation>end of process</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_1ywekcs</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1x5mg8r" name="Not Blue" sourceRef="ExclusiveGateway_08eat85" targetRef="Task_099mntx">
-      <bpmn:documentation>You have not selected my favorite color</bpmn:documentation>
+      <bpmn:documentation>If not blue (!=) it will route this path</bpmn:documentation>
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color!="Blue"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0yqkak0" name="Yeah Blue" sourceRef="ExclusiveGateway_08eat85" targetRef="Task_0efjigm">
-      <bpmn:documentation>Selecting Blue makes me happy... and you should make me happy,</bpmn:documentation>
+      <bpmn:documentation>This is the defaul path, hence no condition. So if not in the other paths, it will go this route. Think of it as an "ELSE" statement.</bpmn:documentation>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1ywekcs" sourceRef="Task_0efjigm" targetRef="EndEvent_1ou1x9b" />
     <bpmn:serviceTask id="Task_0efjigm" name="Send email " camunda:delegateExpression="#{sendEmail}">
-      <bpmn:documentation>send an email notifying user that Blue is awesome!</bpmn:documentation>
+      <bpmn:documentation>Calls a delegate to sendEmail (currently only a println) it calls the "sendEmail" java class. @Service("sendEmail") is the decorator to look for in the sendEmail java calls and the expression language calls via #{sendEmail}.
+</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_1hiqxzx</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0yqkak0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ywekcs</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1hiqxzx" sourceRef="Task_0jzdp55" targetRef="Task_0efjigm" />
     <bpmn:businessRuleTask id="Task_1agg8g0" name="color decision" camunda:resultVariable="comment" camunda:decisionRef="Decision_color" camunda:mapDecisionResult="singleEntry">
+      <bpmn:documentation>This sets a text output for comment property</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_0st9uco</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0d1wfm8</bpmn:outgoing>
     </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="SequenceFlow_0d1wfm8" sourceRef="Task_1agg8g0" targetRef="ExclusiveGateway_08eat85" />
-    <bpmn:scriptTask id="Task_099mntx" name="cars" scriptFormat="groovy" camunda:resultVariable="cars">
+    <bpmn:scriptTask id="Task_099mntx" name="Groovy Script" scriptFormat="groovy" camunda:resultVariable="cars">
+      <bpmn:documentation>Simple groovy script to set an array (cars) for use in next step.</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_1x5mg8r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01gpaea</bpmn:outgoing>
       <bpmn:script>cars = ["Saab", "Volvo", "BMW"]</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="SequenceFlow_01gpaea" sourceRef="Task_099mntx" targetRef="Task_0jzdp55" />
     <bpmn:callActivity id="Task_0jzdp55" name="Think Blue is better" calledElement="call_activity_sub">
+      <bpmn:documentation>Multi-Instance Call Activity that creates 3 sub process tasks from collection (cars array) and then puts each collection item into the element variable (car).</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:in businessKey="#{execution.processBusinessKey}" />
         <camunda:in variables="all" />
@@ -76,6 +83,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1ou1x9b_di" bpmnElement="EndEvent_1ou1x9b" bioc:stroke="#E53935" bioc:fill="#FFCDD2">
         <dc:Bounds x="900" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="882" y="145" width="73" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1x5mg8r_di" bpmnElement="SequenceFlow_1x5mg8r">
         <di:waypoint x="562" y="145" />
