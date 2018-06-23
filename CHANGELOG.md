@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [0.1.2] - 2018-06-23
+### Added
+- Added multi instance (parallel) Call Activity
+- Call Activity will create 3 sub processes (call_activity_sub.bpmn)
+- Added simple Groovy Script Task to set cars array for use as collection in Call Activity
+- Added Element Documention to each step in sampleProcess_1.bpmn
+
+### Changed
+- increment of version
+- Removed white space in textarea tags in HTML forms
+- minor changes to flow for better visual appeal
+
+### Removed
+- removed condition type for expression language ${FormField_Color=="Blue"} so it acts as default path
+
 ## [0.1.1] - 2018-06-17
 ### Added
 - Adding simple enum example (learning)
