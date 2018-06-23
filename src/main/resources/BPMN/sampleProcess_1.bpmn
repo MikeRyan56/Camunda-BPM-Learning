@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_11hrmlt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.0">
   <bpmn:process id="sampleProcess_1" name="Sample Process 1" isExecutable="true">
+    <bpmn:documentation>This flow shows calling a simple DMN, uses a Script task with Groovy, a parallel multi instance Call Activity starting sub processes, and a Service Task using a Java class call via the Expression Language. </bpmn:documentation>
     <bpmn:startEvent id="StartEvent_1" name="Start" camunda:formKey="embedded:app:forms/start.html">
-      <bpmn:documentation>This is a start process. It has an HTML form and two properties to pass off to Decion Table </bpmn:documentation>
+      <bpmn:documentation>This is a start process. It has an HTML form and two properties to pass off to Decion Table</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_Color" label="Favorite Color" type="string">
@@ -35,8 +36,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1ywekcs" sourceRef="Task_0efjigm" targetRef="EndEvent_1ou1x9b" />
     <bpmn:serviceTask id="Task_0efjigm" name="Send email " camunda:delegateExpression="#{sendEmail}">
-      <bpmn:documentation>Calls a delegate to sendEmail (currently only a println) it calls the "sendEmail" java class. @Service("sendEmail") is the decorator to look for in the sendEmail java calls and the expression language calls via #{sendEmail}.
-</bpmn:documentation>
+      <bpmn:documentation>Calls a delegate to sendEmail (currently only a println) it calls the "sendEmail" java class. @Service("sendEmail") is the decorator to look for in the sendEmail java calls and the expression language calls via #{sendEmail}.</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_1hiqxzx</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0yqkak0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ywekcs</bpmn:outgoing>
