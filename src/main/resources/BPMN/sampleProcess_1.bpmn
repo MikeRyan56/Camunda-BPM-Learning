@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_11hrmlt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.0">
   <bpmn:process id="sampleProcess_1" name="Sample Process 1" isExecutable="true">
-    <bpmn:documentation>This flow shows calling a simple DMN, uses a Script task with Groovy, a parallel multi instance Call Activity starting sub processes, and a Service Task using a Java class call via the Expression Language. </bpmn:documentation>
+    <bpmn:documentation>This flow shows calling a simple DMN, uses a Script task with Groovy, a parallel multi instance Call Activity starting sub processes, and a Service Task using a Java class call via the Expression Language.</bpmn:documentation>
     <bpmn:startEvent id="StartEvent_1" name="Start" camunda:formKey="embedded:app:forms/start.html">
       <bpmn:documentation>This is a start process. It has an HTML form and two properties to pass off to Decion Table</bpmn:documentation>
       <bpmn:extensionElements>
@@ -52,7 +52,7 @@
       <bpmn:documentation>Simple groovy script to set an array (cars) for use in next step.</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_1x5mg8r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01gpaea</bpmn:outgoing>
-      <bpmn:script>cars = ["Saab", "Volvo", "BMW"]</bpmn:script>
+      <bpmn:script>cars = ["Saab", "Volvo", "BMW", "Toyota", "Honda","Ford","Chevy","GM", "Porche", "Vauxhall"]</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="SequenceFlow_01gpaea" sourceRef="Task_099mntx" targetRef="Task_0jzdp55" />
     <bpmn:callActivity id="Task_0jzdp55" name="Think Blue is better" calledElement="call_activity_sub">
@@ -64,9 +64,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_01gpaea</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hiqxzx</bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics camunda:collection="cars" camunda:elementVariable="car">
-        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">3</bpmn:loopCardinality>
-      </bpmn:multiInstanceLoopCharacteristics>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="cars" camunda:elementVariable="car" />
     </bpmn:callActivity>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -124,7 +122,8 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_01gpaea_di" bpmnElement="SequenceFlow_01gpaea">
         <di:waypoint x="612" y="270" />
-        <di:waypoint x="718" y="270" />
+        <di:waypoint x="649" y="270" />
+        <di:waypoint x="716" y="270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="CallActivity_1fjnqwh_di" bpmnElement="Task_0jzdp55" bioc:stroke="#1E88E5" bioc:fill="#BBDEFB">
         <dc:Bounds x="718" y="230" width="100" height="80" />
