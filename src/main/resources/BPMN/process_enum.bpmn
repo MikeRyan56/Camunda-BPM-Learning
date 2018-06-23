@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_051x1y6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.15.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_051x1y6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.0">
   <bpmn:process id="process_enum" name="Process Enum" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:documentation>simple example of enum to see what it does via the Camunda SDK</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1" name="start">
+      <bpmn:documentation>start of process</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_Enum_1" label="FormField_Enum_1" type="enum">
@@ -14,11 +16,13 @@
       <bpmn:outgoing>SequenceFlow_108bqdq</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_108bqdq" sourceRef="StartEvent_1" targetRef="Task_1u2ioll" />
-    <bpmn:endEvent id="EndEvent_1b8d3fj">
+    <bpmn:endEvent id="EndEvent_1b8d3fj" name="end">
+      <bpmn:documentation>end of process</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_19t429v</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_19t429v" sourceRef="Task_1u2ioll" targetRef="EndEvent_1b8d3fj" />
     <bpmn:userTask id="Task_1u2ioll" name="Second Enum Task">
+      <bpmn:documentation>simple form with an enum property type.</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_Enum_2" label="FormField_Enum_2" type="enum">
@@ -36,6 +40,9 @@
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process_enum">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="173" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="180" y="145" width="23" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_108bqdq_di" bpmnElement="SequenceFlow_108bqdq">
         <di:waypoint x="209" y="120" />
@@ -43,6 +50,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1b8d3fj_di" bpmnElement="EndEvent_1b8d3fj">
         <dc:Bounds x="409" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="418" y="145" width="19" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_19t429v_di" bpmnElement="SequenceFlow_19t429v">
         <di:waypoint x="359" y="120" />
