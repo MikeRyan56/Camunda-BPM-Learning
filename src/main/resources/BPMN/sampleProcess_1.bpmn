@@ -32,7 +32,10 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color!="Blue"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0yqkak0" name="Yeah Blue" sourceRef="ExclusiveGateway_08eat85" targetRef="Task_0efjigm">
-      <bpmn:documentation>This is the defaul path, hence no condition. So if not in the other paths, it will go this route. Think of it as an "ELSE" statement.</bpmn:documentation>
+      <bpmn:documentation>This is the defaul path, hence the condition for "Blue" (${FormField_Color=="Blue"}). 
+
+So if not in the other paths, it will go this route. Think of it as an "ELSE" statement.</bpmn:documentation>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_Color=="Blue"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1ywekcs" sourceRef="Task_0efjigm" targetRef="EndEvent_1ou1x9b" />
     <bpmn:serviceTask id="Task_0efjigm" name="Send email " camunda:delegateExpression="#{sendEmail}">
