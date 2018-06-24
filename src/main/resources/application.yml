@@ -2,6 +2,7 @@ camunda:
   bpm:
     history-level: Full
     id-generator: strong
+    auto-deployment-enabled: true
     filter:
         create: All tasks
     admin-user:
@@ -9,7 +10,7 @@ camunda:
       password: rules
       firstName: Admin
       lastName: istrator
-      email: mikeryan56@gmail.com
+      email: mrstu@live.com
 
 
 spring:
