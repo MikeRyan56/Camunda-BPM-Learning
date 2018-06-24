@@ -1,0 +1,41 @@
+           <!--<div class="form-group">-->
+                <!--<label for = "FormField_Color">Your Favorite Color?</label>-->
+                <!--<div class="controls">-->
+                    <!--<select required-->
+                            <!--class="form-control"-->
+                            <!--name="FormField_Color"-->
+                            <!--cam-variable-name="FormField_Color"-->
+                            <!--cam-variable-type="String">-->
+                        <!--<option value="Blue" checked>Blue</option>-->
+                        <!--<option value="Green">Green</option>-->
+                        <!--<option value="Red">Red</option>-->
+                        <!--<option value="Purple">Purple</option>-->
+                        <!--<option value="Yellow">Yellow</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label for="FormField_myReason">My Reasoning</label>-->
+                    <!--<div class="controls">-->
+                        <!--<textarea class="form-control"-->
+                              <!--cam-variable-name="FormField_myReason"-->
+                              <!--cam-variable-type="String"-->
+                              <!--rows="4">-->
+                        <!--</textarea>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+           <form role="form" name="form">
+               <div class="form-group">
+                   <label for="FormField_Color-field">Your Favorite Color</label>
+                   <input required
+                          cam-variable-name="FormField_Color"
+                          cam-variable-type="String"
+                          class="form-control" />
+               </div>
+               <div class="form-group">
+                   <label for="FormField_myReason-field">My Reason</label>
+                   <input cam-variable-name="FormField_myReason"
+                          cam-variable-type="string"
+                          class="form-control" />
+               </div>
+           </form>
