@@ -5,11 +5,11 @@
 
 	<groupId>org.devsetgo.bpm.camunda</groupId>
 	<artifactId>learning</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>learning</name>
-	<description>Demo project for Spring Boot</description>
+	<name>learning-camunda</name>
+	<description>Learning Camunda - contains basic prccesses to learn from. Source code on Github.com/StuRyan56</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -70,7 +70,11 @@
 			<version>${camunda.spring.boot.starter.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -79,13 +83,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<layout>ZIP</layout>
+					<layout>JAR</layout>
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
 							<goal>repackage</goal>
 						</goals>
+						<configuration>
+							<mainClass>org.devsetgo.bpm.camunda.learning.LearningApplication</mainClass>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -97,14 +104,21 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
 		</plugins>
+		<finalName>learning-camunda</finalName>
+		<!--<resources>-->
+		<!--<resource>-->
+		<!--<directory>src/main/webapp</directory>-->
+		<!--</resource>-->
+		<!--</resources>-->
 	</build>
-	<repositories>
-		<repository>
-			<id>camunda-bpm-nexus</id>
-			<name>camunda-bpm-nexus</name>
-			<url>https://app.camunda.com/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
+	<!--<repositories>-->
+	<!--<repository>-->
+	<!--<id>camunda-bpm-nexus</id>-->
+	<!--<name>camunda-bpm-nexus</name>-->
+	<!--<url>https://app.camunda.com/nexus/content/groups/public</url>-->
+	<!--</repository>-->
+	<!--</repositories>-->
 
 </project>

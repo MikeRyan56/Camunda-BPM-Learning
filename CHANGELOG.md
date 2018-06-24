@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [0.1.3] - 2018-06-24
+### Added
+- Dockerfile to build image
+### Changed
+- added static/forms directory under resources to serve embedded forms (seems to only work this way)
+- changed application.properties to have app run from port 8090 (needed to learn that)
+
+### Removed
+- webapp and webapp/forms directory as SpringBoot doesn't add this to deployment
+- a major headache figuring out how to server the embedded forms!
+
 ## [0.1.2] - 2018-06-23
 ### Added
 - Added multi instance (parallel) Call Activity
@@ -21,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 - removed condition type for expression language ${FormField_Color=="Blue"} so it acts as default path
 - loop cardinality in Call Activity not needed in this scenerio
+
 ## [0.1.1] - 2018-06-17
 ### Added
 - Adding simple enum example (learning)
