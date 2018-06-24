@@ -11,8 +11,6 @@ camunda:
       firstName: Admin
       lastName: istrator
       email: mrstu@live.com
-
-
 spring:
   application:
     name: abc
