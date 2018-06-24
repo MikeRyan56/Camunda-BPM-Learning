@@ -70,11 +70,11 @@
 			<version>${camunda.spring.boot.starter.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet</groupId>-->
+			<!--<artifactId>jstl</artifactId>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>
@@ -83,7 +83,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<layout>JAR</layout>
+					<layout>ZIP</layout>
 				</configuration>
 				<executions>
 					<execution>
