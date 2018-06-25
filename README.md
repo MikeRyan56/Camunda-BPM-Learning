@@ -1,6 +1,6 @@
 # Camunda-BPM-Learning
 Project to store what I learn about Camunda and use for future base projects.
-Camunda BPM Documents (https://docs.camunda.org)
+Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
 Things in the example
 
