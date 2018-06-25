@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [0.1.3] - 2018-06-24
 ### Added
-- Dockerfile to build image
+- Dockerfile to build image and pushed to docker hub (https://hub.docker.com/r/mikeryan56/learning-camunda/)
+- Commented out setting in application.yml and application.properties
+
 ### Changed
 - added static/forms directory under resources to serve embedded forms (seems to only work this way)
-- changed application.properties to have app run from port 8090 (needed to learn that)
 
 ### Removed
 - webapp and webapp/forms directory as SpringBoot doesn't add this to deployment
