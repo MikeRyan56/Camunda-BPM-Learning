@@ -13,3 +13,13 @@ As of 0.1.3
 7. Dockerfile to build an image
 
 
+
+##How to use
+* Clone and build via Maven
+* Run via .jar or pull via Docker Hub (mikeryan56/learning-camunda)
+* Log in is UserName: Admin and Password: Rules
+
+
+
+
+
