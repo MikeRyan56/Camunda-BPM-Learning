@@ -8,6 +8,15 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 * Video tutorials (maybe)
 * Links to base information needed to start
 
+## Next BPM Items to Work On (contributors welcomed!)
+* Call REST Service to fetch data
+* Send Email
+* Start process example via API
+* Explore APIs
+* Performance Test
+* Signal example
+* Extend form validation via JavaScript
+
 ## Things in the example
 
 ### As of 0.1.3
