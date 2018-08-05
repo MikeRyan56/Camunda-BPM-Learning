@@ -162,10 +162,10 @@
       <bpmn:outgoing>SequenceFlow_1cdwk4d</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0xjl0qo</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_1cdwk4d" sourceRef="ExclusiveGateway_1s16rnq" targetRef="Task_0yhftta">
+    <bpmn:sequenceFlow id="SequenceFlow_1cdwk4d" name="Under Approval Limit" sourceRef="ExclusiveGateway_1s16rnq" targetRef="Task_0yhftta">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{cca[0].limit &gt;= FormField_amount}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0xjl0qo" sourceRef="ExclusiveGateway_1s16rnq" targetRef="Task_0op8kwn">
+    <bpmn:sequenceFlow id="SequenceFlow_0xjl0qo" name="Over Approval Limit" sourceRef="ExclusiveGateway_1s16rnq" targetRef="Task_0op8kwn">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{cca[0].limit &lt; FormField_amount}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0ontu65">
@@ -296,10 +296,16 @@
       <bpmndi:BPMNEdge id="SequenceFlow_1cdwk4d_di" bpmnElement="SequenceFlow_1cdwk4d">
         <di:waypoint x="763" y="120" />
         <di:waypoint x="872" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="772" y="90" width="77" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0xjl0qo_di" bpmnElement="SequenceFlow_0xjl0qo">
         <di:waypoint x="738" y="145" />
         <di:waypoint x="738" y="193" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="715" y="153" width="71" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0ontu65_di" bpmnElement="ExclusiveGateway_0ontu65" isMarkerVisible="true">
         <dc:Bounds x="713" y="346" width="50" height="50" />
