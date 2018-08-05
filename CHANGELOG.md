@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
+## [0.1.4] - 2018-08-04
+
+### To Do
+- Add HTML forms for each human process
+- Organize files (static and BPMN/DMN) to standardize naming
+### Added
+- Added Account Receivable process for approval with BPMN and DMN files.
+- Will route based off of cost center
+
+### Changed
+
+### Removed
+
+
 
 ## [0.1.3] - 2018-06-24
 ### Added

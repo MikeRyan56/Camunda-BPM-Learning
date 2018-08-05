@@ -19,6 +19,11 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
 ## Things in the example
 
+### As of 0.1.4
+* Accounts Receivable process with BPMN and DMN file for cost center routing
+* Get current user when submitting form
+* Use of ResultList for getting 3 outputs from DMN (primary approver, limit, & secondary approver)
+
 ### As of 0.1.3
 1. simple color picking process
 2. color picking uses Call Activity to use a Sub Process (parallel multi instance)
