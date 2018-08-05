@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ## [0.1.4] - 2018-08-04
 
-### To Do
+### ToDo
 - Add HTML forms for each human process
 - Organize files (static and BPMN/DMN) to standardize naming
 ### Added
