@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  web:
+    build: ../../..
+    image: mikeryan56/learning-camunda:0.1.4
+    #image: mikeryan56/learning-camunda:latest
+#    expose:
+#    - 8080
+    ports:
+    - "3200:8080"
+#    volumes:
+#    - .:/code
+    environment:
+      VIRTUAL_HOST: learning-camunda.devsetgo.com
+      LETSENCRYPT_HOST: learning-camunda.devsetgo.com
+    deploy:
+      #      replicas: 2
+      #      resources:
+      #        limits:
+      #          cpus: "0.2"
+      #          memory: 100M
+      restart_policy:
+        condition: always
