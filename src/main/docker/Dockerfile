@@ -1,5 +1,7 @@
 FROM openjdk:8
 MAINTAINER Stu Ryan <mrstu@live.com>
+ENV VIRTUAL_HOST learning-camunda.devsetgo.com
+ENV LETSENCRYPT_HOST learning-camunda.devsetgo.com
 #VOLUME /tmp
 #ADD target/learning-camunda.jar app.jar
 COPY target/learning-camunda.jar app.jar
