@@ -3,16 +3,11 @@
   <bpmn:process id="CostCenterApproval" name="Cost Center Approval" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Start&#10;" camunda:initiator="requestor">
       <bpmn:extensionElements>
-        <camunda:formData businessKey="FormField_Key">
+        <camunda:formData>
           <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" defaultValue="101" />
           <camunda:formField id="FormField_amount" label="Amount" type="long" defaultValue="4000" />
           <camunda:formField id="FormField_description" label="Description" type="string" defaultValue="Bob wants his money or else." />
           <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string" defaultValue="${currentUser()}">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="FormField_Key" label="Business Key" type="string" defaultValue="#{makekey.getBK()}">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
