@@ -1,0 +1,123 @@
+<form class="form-horizontal">
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function() {
+            <!--camForm.variableManager.fetchVariable('FormField_InvoiceName');-->
+            <!--camForm.variableManager.fetchVariable('INVOICE_DOCUMENT');-->
+            camForm.variableManager.fetchVariable('FormField_primaryApproval');
+            camForm.variableManager.fetchVariable('FormField_ApprovalNotes');
+            camForm.variableManager.fetchVariable('FormField_secondaryApproval');
+        });
+        camForm.on('variables-restored', function() {
+            <!--$scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');-->
+            <!--$scope.invoiceName = camForm.variableManager.variableValue('INVOICE_DOCUMENT');-->
+            $scope.primeApproval = camForm.variableManager.variableValue('FormField_primaryApproval');
+            $scope.primeNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');
+            $scope.secondaryApproval = camForm.variableManager.variableValue('FormField_secondaryApproval');
+            console.log("setting variables to scope");
+        });
+
+
+    </script>
+    <div class="row">
+        <div class="table-responsive">
+
+            <table class="table table-striped">
+                <tr>
+                    <th><b>Primary Approval</b></th>
+                    <th><b>Secondary Approval</b></th>
+                    <th><b>Approval Notes: </b></th>
+                    <!--<td></td>-->
+                </tr>
+                <tr>
+                    <th>{{primeApproval}}</th>
+                    <th>{{secondaryApproval}}</th>
+                    <th>{{ primeNotes }}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Begin Form -->
+    <p></p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="column-left">
+                <div class="form-group">
+                    <label for="FormField_costCenter">
+                        Cost Center
+                    </label>
+                    <div class="controls">
+                        <input class="form-control" name="FormField_costCenter" cam-variable-type="String"
+                               cam-variable-name="FormField_costCenter" type="text" required
+                               placeholder="Cost Center Number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="FormField_amount">
+                        Amount
+                    </label>
+                    <div class="controls">
+                        <input class="form-control" name="FormField_amount" cam-variable-type="Long"
+                               cam-variable-name="FormField_amount" type="text" required
+                               placeholder="Amount of Invoice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="FormField_submittedBy">
+                        Submitted By
+                    </label>
+                    <div class="controls">
+                        <input class="form-control" name="FormField_submittedBy" cam-variable-type="String"
+                               cam-variable-name="FormField_submittedBy" type="text" readonly>
+                    </div>
+                    <label for="FormField_InvoiceName">
+                        Attach Invoice
+                    </label>
+                    <div class="controls">
+                        <div class="col-md-4">
+                            <input class="form-control" name="FormField_InvoiceName" cam-variable-type="String"
+                                   cam-variable-name="FormField_InvoiceName" type="text" required maxlength="20"
+                                   placeholder="Short Name of Invoice">
+
+                            <input type="file"
+                                   cam-variable-name="INVOICE_DOCUMENT"
+                                   cam-variable-type="File"/>
+                            <!--cam-max-filesize="10000000" />-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="column-right">
+                <div class="form-group">
+                    <label for="FormField_description">
+                        Description
+                    </label>
+                    <div class="controls">
+                    <textarea class="form-control" cam-variable-type="String"
+                              cam-variable-name="FormField_description" name="FormField_description" cols="50" rows="8"
+                              maxlength="500" type="text" required
+                              placeholder="Describe the purpose of this invoice"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="FormField_withdraw">
+                    <b>Withdraw Request? </b>
+                </label>
+                <div class="controls">
+                    <input class="form-control" name="FormField_withdraw" cam-variable-type="Boolean"
+                           cam-variable-name="FormField_withdraw" type="checkbox">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

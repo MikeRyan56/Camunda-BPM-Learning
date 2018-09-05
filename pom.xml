@@ -77,7 +77,43 @@
 		<version>${camunda.spring.boot.starter.version}</version>
 		<scope>test</scope>
 	</dependency>
+	<dependency>
+		<groupId>org.camunda.connect</groupId>
+		<artifactId>camunda-connect-core</artifactId>
+		<version>1.0.5</version>
+	</dependency>
 
+
+	<dependency>
+		<groupId>org.camunda.connect</groupId>
+		<artifactId>camunda-connect-http-client</artifactId>
+		<version>1.0.6</version>
+	</dependency>
+	<dependency>
+		<groupId>org.camunda.connect</groupId>
+		<artifactId>camunda-connect-soap-http-client</artifactId>
+		<version>1.0.6</version>
+	</dependency>
+	<dependency>
+		<groupId>org.camunda.spin</groupId>
+		<artifactId>camunda-spin-core</artifactId>
+		<version>1.5.4</version>
+	</dependency>
+	<dependency>
+		<groupId>org.camunda.spin</groupId>
+		<artifactId>camunda-spin-dataformat-all</artifactId>
+		<version>1.5.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.camunda.bpm</groupId>
+		<artifactId>camunda-engine-plugin-spin</artifactId>
+		<version>7.9.0</version>
+	</dependency>
+	<dependency>
+		<groupId>org.camunda.bpm</groupId>
+		<artifactId>camunda-engine</artifactId>
+		<version>7.9.0</version>
+	</dependency>
 </dependencies>
 
 <build>

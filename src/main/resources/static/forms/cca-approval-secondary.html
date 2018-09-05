@@ -1,0 +1,181 @@
+<form class="form-horizontal">
+    <script cam-script type="text/form-script">
+
+        camForm.on('form-loaded', function() {
+            camForm.variableManager.fetchVariable('FormField_InvoiceName');
+            camForm.variableManager.fetchVariable('FormField_costCenter');
+            camForm.variableManager.fetchVariable('FormField_amount');
+            camForm.variableManager.fetchVariable('FormField_submittedBy');
+            camForm.variableManager.fetchVariable('FormField_description');
+            camForm.variableManager.fetchVariable('FormField_primaryApproval');
+            <!--camForm.variableManager.fetchVariable('FormField_ApprovalNotes');-->
+
+        });
+        camForm.on('variables-restored', function() {
+            $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
+            $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
+            $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
+            $scope.submittedBy = camForm.variableManager.variableValue('FormField_submittedBy');
+            $scope.requestDescription = camForm.variableManager.variableValue('FormField_description');
+            $scope.primeApproval = camForm.variableManager.variableValue('FormField_primaryApproval');
+            <!--$scope.primeNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');-->
+            console.log("setting variables to scope");
+        });
+
+    </script>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th><b>Cost Center: </b></th>
+                <th><b>Amount: </b></th>
+                <th><b>Submitted By: </b></th>
+            </tr>
+            <tr>
+                <th>{{ costCenter }}</th>
+                <th>{{ subAmount }}</th>
+                <th>{{ submittedBy }}</th>
+            </tr>
+        </table>
+        <table class="table table-striped">
+            <tr>
+                <th><b>Download Invoice: </b></th>
+                <th><b>Description: </b></th>
+            </tr>
+            <tr>
+                <th><a cam-file-download="INVOICE_DOCUMENT">{{ invoiceName }}</a></th>
+                <th>{{ requestDescription }}</th>
+            </tr>
+        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th><b>Primary Approval</b></th>
+                    <th><b>Secondary Approval</b></th>
+                    <th><b>Approval Notes: </b></th>
+                    <!--<td></td>-->
+                </tr>
+                <tr>
+                    <th>{{secondaryApproval}}</th>
+                    <th>{{secondaryApproval}}</th>
+                    <th>{{ primeNotes }}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--<div class="col-md-12">-->
+    <!--<table width="500">-->
+    <!--<tr>-->
+    <!--<td width="33%"><b>Cost Center: </b></td>-->
+    <!--<td width="33%"><b>Amount: </b></td>-->
+    <!--<td width="33%"><b>Submitted By: </b></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>{{ costCenter }}</td>-->
+    <!--<td>{{ subAmount }}</td>-->
+    <!--<td>{{ submittedBy }}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><b>Download Invoice: </b></td>-->
+    <!--<td colspan="2"><b>Description: </b></td>-->
+    <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><a cam-file-download="INVOICE_DOCUMENT">{{ invoiceName }}</a></td>-->
+    <!--<td colspan="2">{{ requestDescription }}</td>-->
+    <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><b>primeApproval: </b></td>-->
+    <!--<td colspan="2"><b>Primary Approval Notes: </b></td>-->
+    <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td>{{ primeApproval }}</a></td>-->
+    <!--<td colspan="2">{{ primeNotes }}</td>-->
+    <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+    <!--</tr>-->
+
+    <!--</table>-->
+    <!--</div>-->
+    <p></p>
+    <div class="col-md-12">
+        <!--<div class="col-md-6">-->
+        <!--<div class="column-left">-->
+        <div class="form-group">
+
+            <label for="FormField_secondaryApproval">
+                Primary Approval
+            </label>
+            <div class="controls">
+                <input class="form-control" name="FormField_secondaryApproval" cam-variable-type="Boolean"
+                       cam-variable-name="FormField_secondaryApproval" type="checkbox" placeholder="Check to approve">
+            </div>
+        </div>
+        <!--</div>-->
+    </div>
+
+    <!--<div class="col-md-6">-->
+    <!--<div class="column-right">-->
+    <div class="form-group">
+        <label for="FormField_ApprovalNotes">
+            Approval Comment
+        </label>
+        <div class="controls">
+                <textarea name="FormField_ApprovalNotes" cam-variable-type="String"
+                          cam-variable-name="FormField_ApprovalNotes" type="text" cols="50" rows="8"
+                          maxlength="500" placeholder="Approval or rejection comment"></textarea>
+        </div>
+    </div>
+    <!--</div>-->
+    </div>
+</form>
+
+
+<!--<form class="form-horizontal">-->
+<!--<div class="col-xs-12">-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_costCenter">-->
+<!--Cost Center-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_costCenter" cam-variable-type="String"-->
+<!--cam-variable-name="FormField_costCenter" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_amount">-->
+<!--Amount-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_amount" cam-variable-type="Long"-->
+<!--cam-variable-name="FormField_amount" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_description">-->
+<!--Description-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_description" cam-variable-type="String"-->
+<!--cam-variable-name="FormField_description" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_ApprovalNotes">-->
+<!--Approval Comment-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_ApprovalNotes" cam-variable-type="String"-->
+<!--cam-variable-name="FormField_ApprovalNotes" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_submittedBy">-->
+<!--Submitted By-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_submittedBy" cam-variable-type="String"-->
+<!--cam-variable-name="FormField_submittedBy" type="text">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="FormField_secondaryApproval">-->
+<!--Secondary Approval-->
+<!--</label>-->
+<!--<input class="form-control" name="FormField_secondaryApproval" cam-variable-type="Boolean"-->
+<!--cam-variable-name="FormField_secondaryApproval" type="checkbox">-->
+<!--</div>-->
+<!--</div>-->
+</form>
+

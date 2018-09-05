@@ -1,0 +1,71 @@
+<form class="form-horizontal">
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function() {
+            camForm.variableManager.fetchVariable('FormField_InvoiceName');
+            camForm.variableManager.fetchVariable('FormField_costCenter');
+            camForm.variableManager.fetchVariable('FormField_amount');
+            camForm.variableManager.fetchVariable('FormField_submittedBy');
+            camForm.variableManager.fetchVariable('FormField_description');
+        });
+        camForm.on('variables-restored', function() {
+            $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
+            $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
+            $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
+            $scope.submittedBy = camForm.variableManager.variableValue('FormField_submittedBy');
+            $scope.requestDescription = camForm.variableManager.variableValue('FormField_description');
+            console.log("setting variables to scope");
+        });
+    </script>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th><b>Cost Center: </b></th>
+                <th><b>Amount: </b></th>
+                <th><b>Submitted By: </b></th>
+            </tr>
+            <tr>
+                <th>{{ costCenter }}</th>
+                <th>{{ subAmount }}</th>
+                <th>{{ submittedBy }}</th>
+            </tr>
+        </table>
+        <table class="table table-striped">
+            <tr>
+                <th><b>Download Invoice: </b></th>
+                <th><b>Description: </b></th>
+            </tr>
+            <tr>
+                <th><a cam-file-download="INVOICE_DOCUMENT">{{ invoiceName }}</a></th>
+                <th>{{ requestDescription }}</th>
+            </tr>
+
+        </table>
+
+    </div>
+    <p></p>
+    <div class="col-md-12">
+        <div class="form-group">
+
+            <label for="FormField_primaryApproval">
+                Primary Approval
+            </label>
+            <div class="controls">
+                <input class="form-control" name="FormField_primaryApproval" cam-variable-type="Boolean"
+                       cam-variable-name="FormField_primaryApproval" type="checkbox" placeholder="Check to approve">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="FormField_ApprovalNotes">
+                Approval Comment
+            </label>
+            <div class="controls">
+                    <textarea name="FormField_ApprovalNotes" cam-variable-type="String"
+                              cam-variable-name="FormField_ApprovalNotes" type="text" cols="50" rows="8"
+                              maxlength="500" placeholder="Approval or rejecton comment"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+
