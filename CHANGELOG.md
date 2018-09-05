@@ -10,10 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add HTML forms for each human process
 - Organize files (static and BPMN/DMN) to standardize naming
 ### Added
+- CCA-x HTML forms for all user tasks
+- Standardizing all naming of HTML files
+- HTML forms use cam-script
+- Using basic bootstrap UI controls
 - Added Account Receivable process for approval with BPMN and DMN files.
 - Will route based off of cost center
-
+- Adding application-dev (not committing to learning sample) and application-sample.properties files. 
 ### Changed
+- application.properties to use only "general" configuration
 
 ### Removed
 
