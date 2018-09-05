@@ -3,6 +3,8 @@
 /.vscode/
 # Configuration Files
 application.properties
+.env
+application-dev.properties
 application.yml
 ### STS ###
 .apt_generated
