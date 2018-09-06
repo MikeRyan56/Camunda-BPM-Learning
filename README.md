@@ -37,7 +37,7 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 ## How to use
 * Clone and build via Maven
 * Run via .jar or pull via Docker Hub (mikeryan56/learning-camunda)
-* Log in is UserName: Admin and Password: Rules
+* Log in is UserName: admin and Password: rules
 
 
 
