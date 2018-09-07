@@ -1,7 +1,8 @@
 version: '3.7'
 services:
   web:
-    build: ../../..
+    #build: ../../..
+    build: ./
     image: mikeryan56/learning-camunda:0.1.4
     #image: mikeryan56/learning-camunda:latest
 #    expose:
