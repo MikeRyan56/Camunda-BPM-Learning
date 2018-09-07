@@ -21,8 +21,10 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
 ### As of 0.1.4
 * Accounts Receivable process with BPMN and DMN file for cost center routing
-* Get current user when submitting form
-* Use of ResultList for getting 3 outputs from DMN (primary approver, limit, & secondary approver)
+* Get current user when submitting form or approving
+* Use of singleResult for getting 3 outputs from DMN (primary approver, limit, & secondary approver)
+* Each step of the process has an embedded HTML form following basic bootstrap design
+* Cam-Script to fetch varialbles and display on screen (embedded HTML forms)
 
 ### As of 0.1.3
 1. simple color picking process
