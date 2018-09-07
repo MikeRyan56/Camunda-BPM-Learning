@@ -51,32 +51,30 @@
     </div>
 
     <p></p>
-    <div class="row col-md-12">
+    <div class="row" style="margin-top: 10px">
         <div class="col-md-6">
-            <div class="form-group">
-                <label for="FormField_primaryApproval"><b>As Cost Center Owner do you approve this
-                    invoice?</b></label>
-                <input id="FormField_primaryApproval" class="form-control" name="FormField_primaryApproval"
-                       cam-variable-type="Boolean"
-                       cam-variable-name="FormField_primaryApproval" type="checkbox" placeholder="Check to approve">
-                <label for="FormField_primeApprover">
-                    Prime Reviewer
-                </label>
-                <input class="form-control" name="FormField_primeApprover" cam-variable-type="String"
-                       cam-variable-name="FormField_primeApprover" type="text" readonly>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="FormField_ApprovalNotes"><span class="glyphicons glyphicons-comments"></span><b>Review
-                        Comment</b></label>
-                    <div class="controls">
+            <label for="FormField_primaryApproval"><b>As Cost Center Owner do you approve this
+                invoice?</b></label>
+            <input id="FormField_primaryApproval" class="form-control" name="FormField_primaryApproval"
+                   cam-variable-type="Boolean"
+                   cam-variable-name="FormField_primaryApproval" type="checkbox" placeholder="Check to approve">
+            <label for="FormField_primeApprover">
+                Prime Reviewer
+            </label>
+            <input class="form-control" name="FormField_primeApprover" cam-variable-type="String"
+                   cam-variable-name="FormField_primeApprover" type="text" readonly>
+        </div>
+        <div class="col-md-5">
+            <label for="FormField_ApprovalNotes"><span class="glyphicons glyphicons-comments"></span><b>Review
+                Comment</b></label>
+            <div class="controls">
                     <textarea id="FormField_ApprovalNotes" name="FormField_ApprovalNotes" cam-variable-type="String"
                               cam-variable-name="FormField_ApprovalNotes" type="text" cols="50" rows="8" maxlength="500"
                               placeholder="Approval or rejection comment" required></textarea>
-                    </div>
-                </div>
             </div>
         </div>
+
+    </div>
 </form>
 
 

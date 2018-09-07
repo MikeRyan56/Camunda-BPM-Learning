@@ -2,8 +2,10 @@
     <form class="form-group" role="form" name="variablesForm">
         <script cam-script type="text/form-script">
             camForm.on('form-loaded', function () {
-                camForm.variableManager.fetchVariable('FormField_primaryApprover');
+                camForm.variableManager.fetchVariable('FormField_primeApprover');
                 camForm.variableManager.fetchVariable('FormField_ApprovalNotes');
+                camForm.variableManager.fetchVariable('FormField_secondApprover');
+                camForm.variableManager.fetchVariable('FormField_SecondApprovalNotes');
                 camForm.variableManager.fetchVariable('FormField_InvoiceName');
                 camForm.variableManager.fetchVariable('FormField_costCenter');
                 camForm.variableManager.fetchVariable('FormField_amount');
@@ -11,10 +13,10 @@
                 camForm.variableManager.fetchVariable('FormField_description');
             });
             camForm.on('variables-restored', function () {
-                $scope.primeApprover = camForm.variableManager.variableValue('FormField_primaryApprover');
-                $scope.primeNote = camForm.variableManager.variableValue('FormField_SecondApprovalNotes');
+                $scope.primeApprover = camForm.variableManager.variableValue('FormField_primeApprover');
+                $scope.primeNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');
                 $scope.secondApprover = camForm.variableManager.variableValue('FormField_secondApprover');
-                $scope.secondNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');
+                $scope.secondNotes = camForm.variableManager.variableValue('FormField_SecondApprovalNotes');
                 $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
                 $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
                 $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
@@ -63,7 +65,7 @@
                         Approval: </b>
                         {{ primeApprover }}
                     </li>
-                    <li class="list-group-item"><span class="glyphicon glyphicon-comment"></span><b>Primary Notes: </b>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-comment"></span> <b>Primary Notes: </b>
                         {{ primeNotes }}
                     </li>
                 </ul>
@@ -86,15 +88,15 @@
                 <label for="FormField_DateBilled">
                     Date of Billing
                 </label>
-
                 <!--<p class="input-group">-->
-                <input type="date"
+                <!--<span class="glyphicon glyphicon-th"></span>-->
+                <input type="text"
                        cam-variable-name="FormField_DateBilled"
                        cam-variable-type="Date"
-                       class="form-control" required
-                       datepicker-popup="yyyy-MM-dd'T"
+                       class="form-control"
+                       datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
                        is-open="dateFieldOpenedFormField_DateBilled"/>
-
+                <!--datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"-->
                 <span class="input-group-btn">
                       <button type="button"
                               class="btn btn-default"
@@ -117,7 +119,7 @@
                     Billing Notes
                 </label>
                 <textarea class="form-control" name="FormField_billingNotes" cam-variable-type="String"
-                          cam-variable-name="FormField_billingNotes" type="text" cols="50" rows="8"></textarea>
+                          cam-variable-name="FormField_billingNotes" type="text" cols="50" rows="8" maxlength="500"></textarea>
                 <!--<input class="form-control" name="FormField_billingNotes" cam-variable-type="String"-->
                 <!--cam-variable-name="FormField_billingNotes" type="text">-->
             </div>
