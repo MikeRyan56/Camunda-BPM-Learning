@@ -13,7 +13,7 @@ camunda:
       email: mrstu@live.com
 spring:
   application:
-    name: abc
+    name: Learning-Camunda
 
 #server:
 #  port: 8080

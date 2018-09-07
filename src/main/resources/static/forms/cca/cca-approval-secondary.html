@@ -1,0 +1,143 @@
+<form class="form-group" role="form" name="variablesForm">
+    <script cam-script type="text/form-script">
+        camForm.on('form-loaded', function () {
+            camForm.variableManager.fetchVariable('FormField_primeApprover');
+            camForm.variableManager.fetchVariable('FormField_ApprovalNotes');
+            // camForm.variableManager.fetchVariable('FormField_secondApprover');
+            // camForm.variableManager.fetchVariable('FormField_SecondApprovalNotes');
+            camForm.variableManager.fetchVariable('FormField_InvoiceName');
+            camForm.variableManager.fetchVariable('FormField_costCenter');
+            camForm.variableManager.fetchVariable('FormField_amount');
+            camForm.variableManager.fetchVariable('FormField_submittedBy');
+            camForm.variableManager.fetchVariable('FormField_description');
+        });
+        camForm.on('variables-restored', function () {
+            $scope.primeApprover = camForm.variableManager.variableValue('FormField_primeApprover');
+            $scope.primeNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');
+            // $scope.secondApprover = camForm.variableManager.variableValue('FormField_secondApprover');
+            // $scope.secondNotes = camForm.variableManager.variableValue('FormField_SecondApprovalNotes');
+            $scope.secondApprover = camForm.variableManager.variableValue('FormField_secondApprover');
+            $scope.secondNotes = camForm.variableManager.variableValue('FormField_SecondApprovalNotes');
+            $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
+            $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
+            $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
+            $scope.submittedBy = camForm.variableManager.variableValue('FormField_submittedBy');
+            $scope.requestDescription = camForm.variableManager.variableValue('FormField_description');
+            console.log("setting variables to scope");
+        });
+    </script>
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item"><span class="glyphicon glyphicon-send"></span> <b>Cost Center: </b>
+                    {{ costCenter }}
+                </li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span><b>Amount: </b>
+                    {{ subAmount }}
+                </li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Submitted By: </b>
+                    {{ submittedBy }}
+                </li>
+                <!--<li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download-->
+                <!--Invoice: </b>{{ invoiceName }}-->
+                <!--</li>-->
+                <li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download
+                    Invoice: </b><a cam-file-download="invoiceDocument">
+                    {{ invoiceName }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <label for="FormField_description">
+                <b>Description:</b>
+            </label>
+            <div class="controls">
+                    <textarea class="form-control" cols="50" rows="8"
+                              maxlength="500" type="text" name="FormField_description" readonly
+                              placeholder="Describe the purpose of this invoice">{{ requestDescription }}</textarea>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Primary
+                    Approver: </b>
+                    {{ primeApprover }}
+                </li>
+                <li class="list-group-item"><span class="glyphicons glyphicons-comments"></span><b>Primary Notes: </b>
+                    {{ primeNotes }}
+                </li>
+            </ul>
+        </div>
+        <!--<div class="col-md-6">-->
+            <!--<ul class="list-group">-->
+                <!--<li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Secondary-->
+                    <!--Approver: </b>-->
+                    <!--{{ secondApprover }}-->
+                <!--</li>-->
+                <!--<li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Secondary-->
+                    <!--Notes: </b>-->
+                    <!--{{ secondNotes }}-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+    <!--<div class="row col-md-12" style="margin-top: 10px">-->
+    <!--<div class="col-md-5">-->
+    <!--<div class="form-group">-->
+    <!--<label for="FormField_secondaryApproval"><b>This invoice is greater than cost center owners approval-->
+    <!--level. Do you approve this invoice to be paid?</b></label>-->
+    <!--<input id="FormField_secondaryApproval" class="form-control" name="FormField_secondaryApproval"-->
+    <!--cam-variable-type="Boolean"-->
+    <!--cam-variable-name="FormField_secondaryApproval" type="checkbox"-->
+    <!--placeholder="Check to approve">-->
+
+    <!--<label for="FormField_secondApprover">-->
+    <!--Reviewed By-->
+    <!--</label>-->
+    <!--<input class="form-control" name="FormField_secondApprover" cam-variable-type="String"-->
+    <!--cam-variable-name="FormField_secondApprover" type="text" readonly>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+    <!--<div class="form-group">-->
+    <!--<label for="FormField_SecondApprovalNotes"><span class="glyphicons glyphicons-comments"></span><b>Review-->
+    <!--Comment</b></label>-->
+    <!--<div class="controls">-->
+    <!--<textarea id="FormField_SecondApprovalNotes" name="FormField_SecondApprovalNotes"-->
+    <!--cam-variable-type="String"-->
+    <!--cam-variable-name="FormField_SecondApprovalNotes" type="text" cols="50" rows="8"-->
+    <!--maxlength="500"-->
+    <!--placeholder="Approval or rejection comment" required></textarea>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-6">
+            <label for="FormField_secondaryApproval"><b>As Cost Center Owner do you approve this
+                invoice?</b></label>
+            <input id="FormField_secondaryApproval" class="form-control" name="FormField_secondaryApproval"
+                   cam-variable-type="Boolean"
+                   cam-variable-name="FormField_secondaryApproval" type="checkbox" placeholder="Check to approve">
+            <label for="FormField_secondApprover">
+                Prime Reviewer
+            </label>
+            <input class="form-control" name="FormField_secondApprover" cam-variable-type="String"
+                   cam-variable-name="FormField_secondApprover" type="text" readonly>
+        </div>
+        <div class="col-md-5">
+            <label for="FormField_SecondApprovalNotes"><span class="glyphicons glyphicons-comments"></span><b>Review
+                Comment</b></label>
+            <div class="controls">
+                    <textarea id="FormField_SecondApprovalNotes" name="FormField_SecondApprovalNotes"
+                              cam-variable-type="String"
+                              cam-variable-name="FormField_SecondApprovalNotes" type="text" cols="50" rows="8"
+                              maxlength="500"
+                              placeholder="Approval or rejection comment" required></textarea>
+            </div>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0rcukgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
+  <bpmn:process id="CostCenterApproval" name="Cost Center Approval" isExecutable="true">
+    <bpmn:documentation>Invoice Submission, Review and Processing</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1" name="StartEvent_1&#10;" camunda:formKey="embedded:app:forms/cca/cca-ar-start.html" camunda:initiator="requestor">
+      <bpmn:documentation>All fields are required. 
+
+Enter the cost center this invoice is against, the rounded amount for the invoice and attached the invoice. Enter a description for the invoice, limited to 500 characters.
+
+</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" defaultValue="101" />
+          <camunda:formField id="FormField_amount" label="Amount" type="long" defaultValue="4001" />
+          <camunda:formField id="FormField_description" label="Description" type="string" />
+          <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string" defaultValue="${currentUser()}" />
+          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" defaultValue="Invoice" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0ml4f17</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_16t93zr" sourceRef="costCenterRouting" targetRef="costCenterOwnerApproval" />
+    <bpmn:exclusiveGateway id="primaryApproval" name="primaryApproval">
+      <bpmn:documentation>is this a rejected or approved invoice</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_1nwzf2f</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0m4mofk</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0m9ppwm</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1nwzf2f" sourceRef="costCenterOwnerApproval" targetRef="primaryApproval" />
+    <bpmn:sequenceFlow id="SequenceFlow_0m4mofk" name="Owner Rejection" sourceRef="primaryApproval" targetRef="Task_14dhhxo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_primaryApproval==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="withdraw" name="Withdraw">
+      <bpmn:documentation>deciion to withdraw or continue</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_1f1rrwr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0r5ynyj</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1qcyntf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1f1rrwr" sourceRef="Task_14dhhxo" targetRef="withdraw" />
+    <bpmn:sequenceFlow id="SequenceFlow_0r5ynyj" sourceRef="withdraw" targetRef="costCenterRouting">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_withdraw==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_withdraw" name="WithdrawnEndEvent_withdraw">
+      <bpmn:incoming>SequenceFlow_1qcyntf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1qcyntf" sourceRef="withdraw" targetRef="EndEvent_withdraw">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_withdraw==true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:businessRuleTask id="costCenterRouting" name="Cost Center Routing Approval" camunda:resultVariable="cca" camunda:decisionRef="costCenterRouting" camunda:mapDecisionResult="singleResult">
+      <bpmn:documentation>Cost Center Owner, Limit and Secondary approver decision.</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_0r5ynyj</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0ml4f17</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16t93zr</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="costCenterOwnerApproval" name="Cost Center Owner Approval" camunda:formKey="embedded:app:forms/cca/cca-approval-primary.html" camunda:assignee="${cca.owner}">
+      <bpmn:documentation>As the cost center owner, please review and approve/reject the invoice.
+
+A rejection goes back to the requestor.
+</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_primaryApproval" label="Primary Approval" type="boolean" />
+          <camunda:formField id="FormField_ApprovalNotes" label="Approval Comment" type="string" />
+          <camunda:formField id="FormField_primeApprover" label="Prime Reviewer" type="string" defaultValue="${currentUser()}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_16t93zr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1nwzf2f</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_14dhhxo" name="Review of CCO Rejection" camunda:formKey="embedded:app:forms/cca/cca-cco-rejection.html" camunda:assignee="${requestor}">
+      <bpmn:documentation>Review the rejection reason by the cost center owner or the secondary approver.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" defaultValue="101" />
+          <camunda:formField id="FormField_amount" label="Amount" type="string" defaultValue="4001.01" />
+          <camunda:formField id="FormField_description" label="Description" type="string" />
+          <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string" defaultValue="${currentUser()}" />
+          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" defaultValue="Invoice" />
+          <camunda:formField id="FormField_withdraw" label="Withdraw Request" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0m4mofk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1vci9qj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1f1rrwr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0m9ppwm" sourceRef="primaryApproval" targetRef="limitCheck">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_primaryApproval == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="aRProcessing" name="A/R Processing" camunda:formKey="embedded:app:forms/cca/cca-ar-process.html" camunda:candidateGroups="AccountsReceivable">
+      <bpmn:documentation>This invoice has been approved by the cost center owner and if more than the cost center owners limit, it has also been reviewed by the secondary approver.
+
+Please complete this process and enter a date of billing. A note is optional.
+</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_DateBilled" label="Date of Billing" type="date" />
+          <camunda:formField id="FormField_billingNotes" label="Billing Notes" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1cdwk4d</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0yy4gn2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1kiuw07</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="limitCheck" name="Limit Check">
+      <bpmn:documentation>is this over the limit of the cost center owners approval</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_0m9ppwm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1cdwk4d</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0xjl0qo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1cdwk4d" name="Under Approval Limit" sourceRef="limitCheck" targetRef="aRProcessing">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{cca.limit &gt;= FormField_amount}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0xjl0qo" name="Over Approval Limit" sourceRef="limitCheck" targetRef="secondary">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{cca.limit &lt; FormField_amount}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="secondaryApproval" name="secondaryApproval">
+      <bpmn:documentation>rejection or approval by the secondary approval</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_1cmd4zr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0yy4gn2</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1vci9qj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1cmd4zr" sourceRef="secondary" targetRef="secondaryApproval" />
+    <bpmn:sequenceFlow id="SequenceFlow_0yy4gn2" name="Secondary Approval" sourceRef="secondaryApproval" targetRef="aRProcessing">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_secondaryApproval==true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1vci9qj" name="Secondary Reject" sourceRef="secondaryApproval" targetRef="Task_14dhhxo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_secondaryApproval==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="secondary" name="Secondary Approval" camunda:formKey="embedded:app:forms/cca/cca-approval-secondary.html" camunda:assignee="${cca.secondary}">
+      <bpmn:documentation>The invoice is over the limit of the cost center owner, please review and approve/reject. 
+
+Rejection goes back to the requestor.
+</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_secondaryApproval" label="Secondary Approval" type="boolean" />
+          <camunda:formField id="FormField_SecondApprovalNotes" label="Secondary Comment" type="string" />
+          <camunda:formField id="FormField_secondApprover" label="Reviewed By" type="string" defaultValue="${currentUser()}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0xjl0qo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1cmd4zr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_completed" name="Completed">
+      <bpmn:documentation>End of process</bpmn:documentation>
+      <bpmn:incoming>SequenceFlow_1kiuw07</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1kiuw07" sourceRef="aRProcessing" targetRef="EndEvent_completed" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ml4f17" sourceRef="StartEvent_1" targetRef="costCenterRouting" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CostCenterApproval">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="78" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_16t93zr_di" bpmnElement="SequenceFlow_16t93zr">
+        <di:waypoint x="359" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0j4r3jv_di" bpmnElement="primaryApproval" isMarkerVisible="true" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="559" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="544" y="71" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1nwzf2f_di" bpmnElement="SequenceFlow_1nwzf2f">
+        <di:waypoint x="509" y="120" />
+        <di:waypoint x="559" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m4mofk_di" bpmnElement="SequenceFlow_0m4mofk" bioc:stroke="#000" bioc:fill="#fff">
+        <di:waypoint x="584" y="145" />
+        <di:waypoint x="584" y="270" />
+        <di:waypoint x="459" y="270" />
+        <di:waypoint x="459" y="321" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="524" y="203" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1hnejye_di" bpmnElement="withdraw" isMarkerVisible="true" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="284" y="336" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="286" y="396" width="46" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1f1rrwr_di" bpmnElement="SequenceFlow_1f1rrwr">
+        <di:waypoint x="409" y="361" />
+        <di:waypoint x="334" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0r5ynyj_di" bpmnElement="SequenceFlow_0r5ynyj">
+        <di:waypoint x="309" y="336" />
+        <di:waypoint x="309" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0fjc0tp_di" bpmnElement="EndEvent_withdraw" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="182" y="343" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="156" y="386" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qcyntf_di" bpmnElement="SequenceFlow_1qcyntf">
+        <di:waypoint x="284" y="361" />
+        <di:waypoint x="218" y="361" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_0eftnut_di" bpmnElement="costCenterRouting">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1w25hkz_di" bpmnElement="costCenterOwnerApproval">
+        <dc:Bounds x="409" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1gfrtw3_di" bpmnElement="Task_14dhhxo">
+        <dc:Bounds x="409" y="321" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m9ppwm_di" bpmnElement="SequenceFlow_0m9ppwm">
+        <di:waypoint x="609" y="120" />
+        <di:waypoint x="713" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1hwtkvb_di" bpmnElement="aRProcessing">
+        <dc:Bounds x="872" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1s16rnq_di" bpmnElement="limitCheck" isMarkerVisible="true" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="713" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="709" y="70" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1cdwk4d_di" bpmnElement="SequenceFlow_1cdwk4d" bioc:stroke="#000" bioc:fill="#fff">
+        <di:waypoint x="763" y="120" />
+        <di:waypoint x="872" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="772" y="90" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xjl0qo_di" bpmnElement="SequenceFlow_0xjl0qo" bioc:stroke="#000" bioc:fill="#fff">
+        <di:waypoint x="738" y="145" />
+        <di:waypoint x="738" y="193" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="715" y="153" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0ontu65_di" bpmnElement="secondaryApproval" isMarkerVisible="true">
+        <dc:Bounds x="713" y="336" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="695" y="393" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1cmd4zr_di" bpmnElement="SequenceFlow_1cmd4zr">
+        <di:waypoint x="738" y="273" />
+        <di:waypoint x="738" y="336" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0yy4gn2_di" bpmnElement="SequenceFlow_0yy4gn2" bioc:stroke="#000" bioc:fill="#fff">
+        <di:waypoint x="763" y="361" />
+        <di:waypoint x="922" y="361" />
+        <di:waypoint x="922" y="160" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="860" y="325" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vci9qj_di" bpmnElement="SequenceFlow_1vci9qj" bioc:stroke="#000" bioc:fill="#fff">
+        <di:waypoint x="713" y="361" />
+        <di:waypoint x="593" y="361" />
+        <di:waypoint x="509" y="361" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="609" y="343" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_12trm2y_di" bpmnElement="secondary">
+        <dc:Bounds x="688" y="193" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1841rs6_di" bpmnElement="EndEvent_completed" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="1054" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1046" y="145" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kiuw07_di" bpmnElement="SequenceFlow_1kiuw07">
+        <di:waypoint x="972" y="120" />
+        <di:waypoint x="1054" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ml4f17_di" bpmnElement="SequenceFlow_0ml4f17">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

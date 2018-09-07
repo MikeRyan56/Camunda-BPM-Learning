@@ -2,13 +2,16 @@
 Project to store what I learn about Camunda and use for future base projects.
 Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
+[ChangeLog](https://github.com/MikeRyan56/Camunda-BPM-Learning/blob/master/CHANGELOG.md) 
+
 ## Todo List
 * Document "how to" for examples
 * Increase description for more clarity
 * Video tutorials (maybe)
 * Links to base information needed to start
 
-## Next BPM Items to Work On (contributors welcomed!)
+## Next BPM Items to Work On
+Contributors welcomed!
 * Call REST Service to fetch data
 * Send Email
 * Start process example via API
@@ -18,6 +21,12 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 * Extend form validation via JavaScript
 
 ## Things in the example
+### As of 0.1.4
+* Accounts Receivable process with BPMN and DMN file for cost center routing
+* Get current user when submitting form or approving
+* Use of singleResult for getting 3 outputs from DMN (primary approver, limit, & secondary approver)
+* Each step of the process has an embedded HTML form following basic bootstrap design
+* Cam-Script to fetch varialbles and display on screen (embedded HTML forms)
 
 ### As of 0.1.3
 1. simple color picking process
@@ -32,7 +41,7 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 ## How to use
 * Clone and build via Maven
 * Run via .jar or pull via Docker Hub (mikeryan56/learning-camunda)
-* Log in is UserName: Admin and Password: Rules
+* Log in is UserName: admin and Password: rules
 
 
 

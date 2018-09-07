@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
+## [0.1.4] - 2018-09-04
+
+## Todo
+- Document Process (blog entry)
+- Test Docker Build
+- Push Docker Build
+
+### Added
+- Directory to store Cost Center Approval process (CCA)
+- CCA-x HTML forms for all user tasks
+- Standardizing all naming of HTML files
+- HTML forms for all steps and use cam-script to fetch variables
+- Using basic bootstrap UI controls
+- Added Account Receivable process for approval with BPMN and DMN files.
+- Will route based off of cost center
+- Adding application-dev (not committing to learning sample) and application-sample.properties files. 
+
+### Changed
+- application.properties to use only "general" configuration
+### Removed
 
 ## [0.1.3] - 2018-06-24
 ### Added

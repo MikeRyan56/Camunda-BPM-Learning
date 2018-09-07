@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_00x1h0z" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="costCenterRouting" name="costCenterRouting">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>FormField_costCenter</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Owner" name="owner" typeRef="string" />
+      <output id="OutputClause_1mac1sx" label="Approval Limit" name="limit" typeRef="integer" />
+      <output id="OutputClause_1gng0gj" label="Secondary Approval" name="secondary" typeRef="string" />
+      <rule id="DecisionRule_1sz7yih">
+        <description>Bob has a limit of 5000</description>
+        <inputEntry id="UnaryTests_1fzby7c" expressionLanguage="">
+          <text>"101"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04n9g0n">
+          <text>"bob"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vkorpt">
+          <text>5000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0me528m">
+          <text>"john"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07uchdo">
+        <description>John has a limit of 10000 + example of OR statement</description>
+        <inputEntry id="UnaryTests_1r86q0x">
+          <text>"102","103"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d31ifk">
+          <text>"john"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07yzxw0">
+          <text>10000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b7e1er">
+          <text>"bob"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1619c2w">
+        <description>Cary has a limit of 25000</description>
+        <inputEntry id="UnaryTests_0js97w4">
+          <text>"104"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p6he3d">
+          <text>"cary"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0co3nl6">
+          <text>25000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_197tqki">
+          <text>"cary"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10nbwjd">
+        <description>All others are reviewed by Cary and Mike</description>
+        <inputEntry id="UnaryTests_1l1187i">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yh59y3">
+          <text>"cary"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15gb1ct">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tl6tz0">
+          <text>"mike"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
