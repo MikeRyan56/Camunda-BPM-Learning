@@ -1,74 +1,84 @@
-<form class="form-horizontal">
-    <script cam-script type="text/form-script">
-          // custom JavaScript goes here
+<script cam-script type="text/form-script">
+    // custom JavaScript goes here
 
+    // JavaScript to check if comment is set if rejected - primary approval checkbox is false
+    camForm.on('submit', function () {
+        var dn = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
 
+        var ds = year + "-" + month + "-" + day;
+        var cc = form.FormField_costCenter.$modelValue;
+        var amt = form.FormField_amount.$modelValue;
 
-    </script>
-    <p></p>
-    <div class="row">
+        camForm.businessKey = ds + cc + amt;
+    });
+
+</script>
+<form class="form-group">
+    <div class="row col-md-12" style="margin-top: 5px">
         <div class="col-md-6">
-            <div class="column-left">
-                <div class="form-group">
-                    <label for="FormField_costCenter">
-                        Cost Center
-                    </label>
-                    <div class="controls">
-                        <input class="form-control" name="FormField_costCenter" cam-variable-type="String"
-                               cam-variable-name="FormField_costCenter" type="text" required
-                               placeholder="Cost Center Number">
-                    </div>
+            <div class="form-group">
+                <label for="FormField_costCenter"><span class="glyphicon glyphicon-send"></span> <b>Cost
+                    Center</b></label>
+                <div class="controls">
+                    <input class="form-control" id="FormField_costCenter" name="FormField_costCenter"
+                           cam-variable-type="String"
+                           cam-variable-name="FormField_costCenter" type="text"
+                           placeholder="Cost Center Number" required>
                 </div>
-                <div class="form-group">
-                    <label for="FormField_amount">
-                        Amount
-                    </label>
-                    <div class="controls">
-                        <input class="form-control" name="FormField_amount" cam-variable-type="Long"
-                               cam-variable-name="FormField_amount" type="text" required
-                               placeholder="Amount of Invoice">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="FormField_amount"><span class="glyphicon glyphicon-usd"></span> <b>Amount</b></label>
+                <div class="controls">
+                    <input class="form-control" name="FormField_amount" id="FormField_amount"
+                           cam-variable-type="Long"
+                           cam-variable-name="FormField_amount"
+                           type="number"
+                           placeholder="Amount of Invoice"
+                           value="4000" min="0" step="1"
+                           data-number-to-fixed="2"
+                           data-number-stepfactor="100"
+                           class="form-control currency" required>
                 </div>
-                <div class="form-group">
-                    <label for="FormField_submittedBy">
-                        Submitted By
-                    </label>
-                    <div class="controls">
-                        <input class="form-control" name="FormField_submittedBy" cam-variable-type="String"
-                               cam-variable-name="FormField_submittedBy" type="text" readonly>
-                    </div>
-                    <label for="FormField_InvoiceName">
-                        Attach Invoice
-                    </label>
-                    <div class="controls">
-                        <div class="col-md-4">
-                            <input class="form-control" name="FormField_InvoiceName" cam-variable-type="String"
-                                   cam-variable-name="FormField_InvoiceName" type="text" required maxlength="20"
-                                   placeholder="Short Name of Invoice">
-
-                            <input type="file"
-                                   cam-variable-name="INVOICE_DOCUMENT"
-                                   cam-variable-type="File"/>
-                            <!--cam-max-filesize="10000000" />-->
-                        </div>
+            </div>
+            <div class="form-group">
+                <label for="FormField_submittedBy"><span class="glyphicon glyphicon-user"></span> <b>Submitted
+                    By</b></label>
+                <div class="controls">
+                    <input class="form-control" name="FormField_submittedBy" id="FormField_submittedBy"
+                           cam-variable-type="String"
+                           cam-variable-name="FormField_submittedBy" type="text" value="bob" readonly>
+                </div>
+                <label for="FormField_InvoiceName"><span class="glyphicon glyphicon-upload"></span> <b>Attach
+                    Invoice</b></label>
+                <div class="controls">
+                    <div class="col-md-4">
+                        <input class="form-control" name="FormField_InvoiceName" id="FormField_InvoiceName"
+                               cam-variable-type="String"
+                               cam-variable-name="FormField_InvoiceName" type="text" maxlength="20"
+                               placeholder="Short Name of Invoice" required>
+                        <input type="file" class="form-control-file border"
+                               cam-variable-name="invoiceDocument" id="invoiceDocument" name="invoiceDocument"
+                               cam-variable-type="File">
+                        <!--cam-max-filesize="10000000" />-->
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
-            <div class="column-right">
-                <div class="form-group">
-                    <label for="FormField_description">
-                        Description
-                    </label>
-                    <div class="controls">
+            <div class="form-group">
+                <label for="FormField_description"><span class="glyphicon glyphicon-comment"></span>
+                    <b>Description</b></label>
+                <div class="controls">
                     <textarea class="form-control" cam-variable-type="String"
-                              cam-variable-name="FormField_description" name="FormField_description" cols="50" rows="8"
-                              maxlength="500" type="text" required
-                              placeholder="Describe the purpose of this invoice"></textarea>
-                    </div>
+                              cam-variable-name="FormField_description" name="FormField_description"
+                              id="FormField_description" cols="50" rows="8"
+                              maxlength="500" type="text"
+                              placeholder="Describe the purpose of this invoice" required></textarea>
                 </div>
+
             </div>
         </div>
     </div>

@@ -1,7 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
 <form class="form-group">
     <script cam-script type="text/form-script">
         camForm.on('form-loaded', function () {
-            camForm.variableManager.fetchVariable('FormField_primeApprover');
+            camForm.variableManager.fetchVariable('FormField_primaryApproval');
             camForm.variableManager.fetchVariable('FormField_ApprovalNotes');
             camForm.variableManager.fetchVariable('FormField_secondaryApproval');
             camForm.variableManager.fetchVariable('FormField_SecondApprovalNotes');
@@ -12,9 +24,9 @@
             // camForm.variableManager.fetchVariable('FormField_description');
         });
         camForm.on('variables-restored', function () {
-            $scope.primeApprover = camForm.variableManager.variableValue('FormField_primeApprover');
+            $scope.primeApproval = camForm.variableManager.variableValue('FormField_primaryApproval');
             $scope.primeNotes = camForm.variableManager.variableValue('FormField_ApprovalNotes');
-            $scope.secondApprover = camForm.variableManager.variableValue('FormField_secondApprover');
+            $scope.secondApproval = camForm.variableManager.variableValue('FormField_secondaryApproval');
             $scope.secondNotes = camForm.variableManager.variableValue('FormField_SecondApprovalNotes');
             // $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
             // $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
@@ -28,11 +40,11 @@
         <div class="col-md-6">
 
             <ul class="list-group">
-                <li class="list-group-item"><span class="glyphicons glyphicons-user"></span> <b>Primary
-                    Approvaer: </b>
-                    {{ primeApprover }}
+                <li class="list-group-item"><span class="glyphicon glyphicon-send"></span> <b>Primary
+                    Approval: </b>
+                    {{ primeApproval }}
                 </li>
-                <li class="list-group-item"><span class="glyphicons glyphicons-comments"></span> <b>Primary Notes: </b>
+                <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span><b>Primary Notes: </b>
                     {{ primeNotes }}
                 </li>
             </ul>
@@ -41,11 +53,11 @@
         <div class="col-md-6">
 
             <ul class="list-group">
-                <li class="list-group-item"><span class="glyphicons  glyphicons-user"></span> <b>Secondary
-                    Approval: </b>
-                    {{ secondApprover }}
+                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Secondary
+                    Notes: </b>
+                    {{ secondApproval }}
                 </li>
-                <li class="list-group-item"><span class="glyphicons glyphicons-comments"></span> <b>Secondary
+                <li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Secondary
                     Notes: </b>
                     {{ secondNotes }}
                 </li>
@@ -86,7 +98,7 @@
                     <div class="controls">
                         <input class="form-control" name="FormField_submittedBy" id="FormField_submittedBy"
                                cam-variable-type="String"
-                               cam-variable-name="FormField_submittedBy" type="text" readonly>
+                               cam-variable-name="FormField_submittedBy" type="text" value="bob" readonly>
                     </div>
                     <label for="FormField_InvoiceName"><span class="glyphicon glyphicon-upload"></span> <b>Attach
                         Invoice</b></label>
@@ -124,3 +136,9 @@
         </div>
     </div>
 </form>
+
+<div class="col-md-12" style="margin-top: 55px">
+    <input type="submit">
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0rcukgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0rcukgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
   <bpmn:process id="CostCenterApproval" name="Cost Center Approval" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Start&#10;" camunda:formKey="embedded:app:forms/cca-ar-start.html" camunda:initiator="requestor">
       <bpmn:extensionElements>
@@ -46,29 +46,9 @@
     <bpmn:userTask id="Task_0wybguo" name="Cost Center Owner Approval" camunda:formKey="embedded:app:forms/cca-approval-primary.html" camunda:assignee="${cca[0].owner}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="FormField_amount" label="Amount" type="long">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="FormField_description" label="Description" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
           <camunda:formField id="FormField_primaryApproval" label="Primary Approval" type="boolean" />
           <camunda:formField id="FormField_ApprovalNotes" label="Approval Comment" type="string" />
-          <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" />
+          <camunda:formField id="FormField_primeApprover" label="Prime Reviewer" type="string" defaultValue="${currentUser()}" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_16t93zr</bpmn:incoming>
@@ -77,12 +57,12 @@
     <bpmn:userTask id="Task_14dhhxo" name="Review of CCO Rejection" camunda:formKey="embedded:app:forms/cca-cco-rejection.html" camunda:assignee="${requestor}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" />
-          <camunda:formField id="FormField_amount" label="Amount" type="long" />
+          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" defaultValue="101" />
+          <camunda:formField id="FormField_amount" label="Amount" type="string" defaultValue="4001.01" />
           <camunda:formField id="FormField_description" label="Description" type="string" />
-          <camunda:formField id="FormField_ApprovalNotes" label="Approval Comment" type="string" />
+          <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string" defaultValue="${currentUser()}" />
+          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" defaultValue="Invoice" />
           <camunda:formField id="FormField_withdraw" label="Withdraw Request" type="boolean" />
-          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0m4mofk</bpmn:incoming>
@@ -92,16 +72,11 @@
     <bpmn:sequenceFlow id="SequenceFlow_0m9ppwm" sourceRef="ExclusiveGateway_0j4r3jv" targetRef="ExclusiveGateway_1s16rnq">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${FormField_primaryApproval == true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Task_0yhftta" name="A/R Processing" camunda:candidateGroups="AccountsReceivable">
+    <bpmn:userTask id="Task_0yhftta" name="A/R Processing" camunda:formKey="embedded:app:forms/cca-ar-process.html" camunda:candidateGroups="AccountsReceivable">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" />
-          <camunda:formField id="FormField_amount" label="Amount" type="long" />
-          <camunda:formField id="FormField_description" label="Description" type="string" />
-          <camunda:formField id="FormField_ApprovalNotes" label="Approval Comment" type="string" />
-          <camunda:formField id="FormField_submittedBy" label="Requested For" type="string" />
           <camunda:formField id="FormField_DateBilled" label="Date of Billing" type="date" />
-          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" />
+          <camunda:formField id="FormField_billingNotes" label="Billing Notes" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1cdwk4d</bpmn:incoming>
@@ -134,13 +109,9 @@
     <bpmn:userTask id="Task_0op8kwn" name="Secondary Approval" camunda:formKey="embedded:app:forms/cca-approval-secondary.html" camunda:assignee="${cca[0].secondary}">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" />
-          <camunda:formField id="FormField_amount" label="Amount" type="long" />
-          <camunda:formField id="FormField_description" label="Description" type="string" />
-          <camunda:formField id="FormField_ApprovalNotes" label="Approval Comment" type="string" />
-          <camunda:formField id="FormField_submittedBy" label="Submitted By" type="string" />
           <camunda:formField id="FormField_secondaryApproval" label="Secondary Approval" type="boolean" />
-          <camunda:formField id="FormField_InvoiceName" label="Invoice Name" type="string" />
+          <camunda:formField id="FormField_SecondApprovalNotes" label="Secondary Comment" type="string" />
+          <camunda:formField id="FormField_secondApprover" label="Reviewed By" type="string" defaultValue="${currentUser()}" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0xjl0qo</bpmn:incoming>

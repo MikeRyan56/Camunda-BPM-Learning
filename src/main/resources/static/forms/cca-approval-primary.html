@@ -1,13 +1,13 @@
-<form class="form-horizontal">
+<form class="form-group" role="form" name="variablesForm">
     <script cam-script type="text/form-script">
-        camForm.on('form-loaded', function() {
+        camForm.on('form-loaded', function () {
             camForm.variableManager.fetchVariable('FormField_InvoiceName');
             camForm.variableManager.fetchVariable('FormField_costCenter');
             camForm.variableManager.fetchVariable('FormField_amount');
             camForm.variableManager.fetchVariable('FormField_submittedBy');
             camForm.variableManager.fetchVariable('FormField_description');
         });
-        camForm.on('variables-restored', function() {
+        camForm.on('variables-restored', function () {
             $scope.invoiceName = camForm.variableManager.variableValue('FormField_InvoiceName');
             $scope.costCenter = camForm.variableManager.variableValue('FormField_costCenter');
             $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
@@ -16,56 +16,67 @@
             console.log("setting variables to scope");
         });
     </script>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <tr>
-                <th><b>Cost Center: </b></th>
-                <th><b>Amount: </b></th>
-                <th><b>Submitted By: </b></th>
-            </tr>
-            <tr>
-                <th>{{ costCenter }}</th>
-                <th>{{ subAmount }}</th>
-                <th>{{ submittedBy }}</th>
-            </tr>
-        </table>
-        <table class="table table-striped">
-            <tr>
-                <th><b>Download Invoice: </b></th>
-                <th><b>Description: </b></th>
-            </tr>
-            <tr>
-                <th><a cam-file-download="INVOICE_DOCUMENT">{{ invoiceName }}</a></th>
-                <th>{{ requestDescription }}</th>
-            </tr>
+    <div class="row col-md-12">
+        <div class="col-md-6">
 
-        </table>
-
+            <ul class="list-group">
+                <li class="list-group-item"><span class="glyphicon glyphicon-send"></span> <b>Cost Center: </b>
+                    {{ costCenter }}
+                </li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span><b>Amount: </b>
+                    {{ subAmount }}
+                </li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Submitted By: </b>
+                    {{ submittedBy }}
+                </li>
+                <!--<li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download-->
+                <!--Invoice: </b>{{ invoiceName }}-->
+                <!--</li>-->
+                <li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download
+                    Invoice: </b><a cam-file-download="invoiceDocument">
+                    {{ invoiceName }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <label for="FormField_description">
+                <b>Description:</b>
+            </label>
+            <div class="controls">
+                    <textarea class="form-control" cols="50" rows="8"
+                              maxlength="500" type="text" name="FormField_description" readonly
+                              placeholder="Describe the purpose of this invoice">{{ requestDescription }}</textarea>
+            </div>
+        </div>
     </div>
+
     <p></p>
-    <div class="col-md-12">
-        <div class="form-group">
-
-            <label for="FormField_primaryApproval">
-                Primary Approval
-            </label>
-            <div class="controls">
-                <input class="form-control" name="FormField_primaryApproval" cam-variable-type="Boolean"
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="FormField_primaryApproval"><b>As Cost Center Owner do you approve this
+                    invoice?</b></label>
+                <input id="FormField_primaryApproval" class="form-control" name="FormField_primaryApproval"
+                       cam-variable-type="Boolean"
                        cam-variable-name="FormField_primaryApproval" type="checkbox" placeholder="Check to approve">
+                <label for="FormField_primeApprover">
+                    Prime Reviewer
+                </label>
+                <input class="form-control" name="FormField_primeApprover" cam-variable-type="String"
+                       cam-variable-name="FormField_primeApprover" type="text" readonly>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="FormField_ApprovalNotes"><span class="glyphicons glyphicons-comments"></span><b>Review
+                        Comment</b></label>
+                    <div class="controls">
+                    <textarea id="FormField_ApprovalNotes" name="FormField_ApprovalNotes" cam-variable-type="String"
+                              cam-variable-name="FormField_ApprovalNotes" type="text" cols="50" rows="8" maxlength="500"
+                              placeholder="Approval or rejection comment" required></textarea>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="FormField_ApprovalNotes">
-                Approval Comment
-            </label>
-            <div class="controls">
-                    <textarea name="FormField_ApprovalNotes" cam-variable-type="String"
-                              cam-variable-name="FormField_ApprovalNotes" type="text" cols="50" rows="8"
-                              maxlength="500" placeholder="Approval or rejecton comment"></textarea>
-            </div>
-        </div>
-    </div>
 </form>
 
 
