@@ -21,6 +21,9 @@ Contributors welcomed!
 * Extend form validation via JavaScript
 
 ## Things in the example
+### As of 0.1.4.5
+* Incremental change to add actuator and experiment with the endpoints
+
 ### As of 0.1.4
 * Accounts Receivable process with BPMN and DMN file for cost center routing
 * Get current user when submitting form or approving

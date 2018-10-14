@@ -3,8 +3,8 @@ services:
   web:
     #build: ../../..
     build: ./
-    image: mikeryan56/learning-camunda:0.1.4.5
-    #image: mikeryan56/learning-camunda:latest
+#    image: mikeryan56/learning-camunda:0.1.4.5
+    image: mikeryan56/learning-camunda:latest
 #    expose:
 #    - 8080
     ports:
