@@ -2,7 +2,7 @@
 Project to store what I learn about Camunda and use for future base projects.
 Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
-[ChangeLog](https://github.com/MikeRyan56/Camunda-BPM-Learning/blob/master/CHANGELOG.md) 
+[ChangeLog](https://github.com/devsetgo/Camunda-BPM-Learning/blob/master/CHANGELOG.md) 
 
 ## Todo List
 * Document "how to" for examples
@@ -23,6 +23,8 @@ Contributors welcomed!
 ## Things in the example
 ### As of 0.1.4.5
 * Incremental change to add actuator and experiment with the endpoints
+* Updating to Camunda 7.10.0 and SpringBoot Starter 3.2.0
+* Update of BPMN processes to use the new [Tasklist-startable Process Definitions](https://docs.camunda.org/manual/7.10/user-guide/process-engine/process-engine-concepts/#start-process-instances-via-tasklist) to prevent processes that should not be the start to be exposed to the WebApp UI
 
 ### As of 0.1.4
 * Accounts Receivable process with BPMN and DMN file for cost center routing
@@ -43,7 +45,7 @@ Contributors welcomed!
 
 ## How to use
 * Clone and build via Maven
-* Run via .jar or pull via Docker Hub (mikeryan56/learning-camunda)
+* Run via .jar or pull via Docker Hub (devsetgo/learning-camunda)
 * Log in is UserName: admin and Password: rules
 
 
