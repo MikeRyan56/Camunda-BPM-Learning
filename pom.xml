@@ -5,7 +5,7 @@
 
 <groupId>org.devsetgo.bpm.camunda</groupId>
 <artifactId>learning</artifactId>
-<version>0.1.4</version>
+<version>0.1.4.5</version>
 <packaging>jar</packaging>
 
 <name>learning-camunda</name>
@@ -23,7 +23,7 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<java.version>1.8</java.version>
-	<camunda.spring.boot.starter.version>3.0.0</camunda.spring.boot.starter.version>
+	<camunda.spring.boot.starter.version>3.2.0</camunda.spring.boot.starter.version>
 	<docker.image.prefix>mikeryan56/learning-camunda</docker.image.prefix>
 </properties>
 
@@ -49,6 +49,10 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-jpa</artifactId>
 	</dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
 	<dependency>
 		<groupId>org.codehaus.groovy</groupId>
 		<artifactId>groovy-all</artifactId>
@@ -80,7 +84,7 @@
 	<dependency>
 		<groupId>org.camunda.connect</groupId>
 		<artifactId>camunda-connect-core</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6</version>
 	</dependency>
 
 
@@ -107,12 +111,12 @@
 	<dependency>
 		<groupId>org.camunda.bpm</groupId>
 		<artifactId>camunda-engine-plugin-spin</artifactId>
-		<version>7.9.0</version>
+		<version>7.10.0</version>
 	</dependency>
 	<dependency>
 		<groupId>org.camunda.bpm</groupId>
 		<artifactId>camunda-engine</artifactId>
-		<version>7.9.0</version>
+		<version>7.10.0</version>
 	</dependency>
 </dependencies>
 

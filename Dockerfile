@@ -1,5 +1,5 @@
-FROM openjdk:8
-MAINTAINER Stu Ryan <mikeryan56@gmail.com>
+FROM openjdk:8u171-alpine
+MAINTAINER devsetgo.com
 ENV VIRTUAL_HOST learning-camunda.devsetgo.com
 ENV LETSENCRYPT_HOST learning-camunda.devsetgo.com
 #VOLUME /tmp
