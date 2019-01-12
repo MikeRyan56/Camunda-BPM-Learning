@@ -8,11 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 
 ## [Unreleased]
-## [0.1.4.5] - 2018-10-14
+- None
+
+## [0.1.4.5] - 2019-12-11
 ### Added
 - Added Spring Actuator
 - Enabled all endpoints at /actuator-endpoint
-- Pushed new docker container image
+- Pushed new docker container 
+- Updating to Camunda 7.10.0 and SpringBoot Starter 3.2.0
+- Update of BPMN processes to use the new [Tasklist-startable Process Definitions](https://docs.camunda.org/manual/7.10/user-guide/process-engine/process-engine-concepts/#start-process-instances-via-tasklist) to prevent processes that should not be the start to be exposed to the WebApp UI
+
 
 ### Changed
 - Nothing
