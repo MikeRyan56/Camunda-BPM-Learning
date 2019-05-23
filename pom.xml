@@ -84,7 +84,7 @@
 	<dependency>
 		<groupId>org.camunda.connect</groupId>
 		<artifactId>camunda-connect-core</artifactId>
-		<version>1.0.6</version>
+		<version>1.1.4</version>
 	</dependency>
 
 
