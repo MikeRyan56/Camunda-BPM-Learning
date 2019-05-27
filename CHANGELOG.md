@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 - None
+## [0.1.4.6] - 2019-05-26
+### Updated
+- Incremental changes to version of dependencis in POM
+
 
 ## [0.1.4.5] - 2019-12-11
 ### Added
