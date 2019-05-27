@@ -21,6 +21,9 @@ Contributors welcomed!
 * Extend form validation via JavaScript
 
 ## Things in the example
+### As of 0.1.4.6
+* Incremental changes to POM file
+
 ### As of 0.1.4.5
 * Incremental change to add actuator and experiment with the endpoints
 * Updating to Camunda 7.10.0 and SpringBoot Starter 3.2.0
