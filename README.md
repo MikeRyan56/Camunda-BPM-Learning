@@ -4,6 +4,8 @@ Camunda BPM Documents (https://docs.camunda.org) - currently built on v7.9
 
 [ChangeLog](https://github.com/devsetgo/Camunda-BPM-Learning/blob/master/CHANGELOG.md) 
 
+Versioning - Year (YY) . Month (MM) - Camunda Version
+
 ## Todo List
 * Document "how to" for examples
 * Increase description for more clarity
@@ -21,6 +23,10 @@ Contributors welcomed!
 * Extend form validation via JavaScript
 
 ## Things in the example
+### As of 19.6-7.11
+* Change of versioning to Calendar version - YY.MM-Camunda version
+* Update to Camunda 7.11
+
 ### As of 0.1.4.6
 * Incremental changes to POM file
 
