@@ -91,7 +91,7 @@
 	<dependency>
 		<groupId>org.camunda.connect</groupId>
 		<artifactId>camunda-connect-http-client</artifactId>
-		<version>1.1.4</version>
+		<version>1.2.0</version>
 	</dependency>
 	<dependency>
 		<groupId>org.camunda.connect</groupId>
