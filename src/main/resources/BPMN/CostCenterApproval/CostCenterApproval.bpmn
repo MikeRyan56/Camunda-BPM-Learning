@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0rcukgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0rcukgf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
   <bpmn:process id="CostCenterApproval" name="Cost Center Approval" isExecutable="true">
     <bpmn:documentation>Invoice Submission, Review and Processing</bpmn:documentation>
     <bpmn:startEvent id="StartEvent_1" name="StartEvent_1&#10;" camunda:formKey="embedded:app:forms/cca/cca-ar-start.html" camunda:initiator="requestor">
       <bpmn:documentation>All fields are required. 
 
-Enter the cost center this invoice is against, the rounded amount for the invoice and attached the invoice. Enter a description for the invoice, limited to 500 characters.
-
-</bpmn:documentation>
+Enter the cost center this invoice is against, the rounded amount for the invoice and attached the invoice. Enter a description for the invoice, limited to 500 characters.</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_costCenter" label="Cost Center" type="string" defaultValue="101" />
@@ -55,8 +53,7 @@ Enter the cost center this invoice is against, the rounded amount for the invoic
     <bpmn:userTask id="costCenterOwnerApproval" name="Cost Center Owner Approval" camunda:formKey="embedded:app:forms/cca/cca-approval-primary.html" camunda:assignee="${cca.owner}">
       <bpmn:documentation>As the cost center owner, please review and approve/reject the invoice.
 
-A rejection goes back to the requestor.
-</bpmn:documentation>
+A rejection goes back to the requestor.</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_primaryApproval" label="Primary Approval" type="boolean" />
@@ -89,11 +86,10 @@ A rejection goes back to the requestor.
     <bpmn:userTask id="aRProcessing" name="A/R Processing" camunda:formKey="embedded:app:forms/cca/cca-ar-process.html" camunda:candidateGroups="AccountsReceivable">
       <bpmn:documentation>This invoice has been approved by the cost center owner and if more than the cost center owners limit, it has also been reviewed by the secondary approver.
 
-Please complete this process and enter a date of billing. A note is optional.
-</bpmn:documentation>
+Please complete this process and enter a date of billing. A note is optional.</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_DateBilled" label="Date of Billing" type="date" />
+          <camunda:formField id="FormField_Completed" label="Has this been completed?" type="boolean" />
           <camunda:formField id="FormField_billingNotes" label="Billing Notes" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
@@ -129,8 +125,7 @@ Please complete this process and enter a date of billing. A note is optional.
     <bpmn:userTask id="secondary" name="Secondary Approval" camunda:formKey="embedded:app:forms/cca/cca-approval-secondary.html" camunda:assignee="${cca.secondary}">
       <bpmn:documentation>The invoice is over the limit of the cost center owner, please review and approve/reject. 
 
-Rejection goes back to the requestor.
-</bpmn:documentation>
+Rejection goes back to the requestor.</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_secondaryApproval" label="Secondary Approval" type="boolean" />

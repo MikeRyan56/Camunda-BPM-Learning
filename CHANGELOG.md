@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 - None
+## [19.10.05] - 2019-10-05
+### Added
+* sonar properties
+* pom cleanup
+
 ## [19.6-7.11] - 2019-06-22
 ### Updated
 * Change of versioning to Calendar version - YY.MM-Camunda version

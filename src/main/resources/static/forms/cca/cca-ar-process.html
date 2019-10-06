@@ -11,6 +11,7 @@
                 camForm.variableManager.fetchVariable('FormField_amount');
                 camForm.variableManager.fetchVariable('FormField_submittedBy');
                 camForm.variableManager.fetchVariable('FormField_description');
+<!--                camForm.variableManager.fetchVariable('FormField_Completed');-->
             });
             camForm.on('variables-restored', function () {
                 $scope.primeApprover = camForm.variableManager.variableValue('FormField_primeApprover');
@@ -22,6 +23,7 @@
                 $scope.subAmount = camForm.variableManager.variableValue('FormField_amount');
                 $scope.submittedBy = camForm.variableManager.variableValue('FormField_submittedBy');
                 $scope.requestDescription = camForm.variableManager.variableValue('FormField_description');
+                $scope.requestDescription = camForm.variableManager.variableValue('FormField_Completed');
                 console.log("setting variables to scope");
             });
         </script>
@@ -85,25 +87,16 @@
         </div>
         <div class="row col-md-3" style="margin: 10px">
             <div class="form-horizontal">
-                <label for="FormField_DateBilled">
-                    Date of Billing
-                </label>
-                <!--<p class="input-group">-->
-                <!--<span class="glyphicon glyphicon-th"></span>-->
-                <input type="text"
-                       cam-variable-name="FormField_DateBilled"
-                       cam-variable-type="Date"
-                       class="form-control"
-                       datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
-                       is-open="dateFieldOpenedFormField_DateBilled"/>
-                <!--datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"-->
-                <span class="input-group-btn">
-                      <button type="button"
-                              class="btn btn-default"
-                              ng-click="openFormField_DateBilled($event)">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                      </button>
-                    </span>
+<!--                <label for="FormField_DateBilled">-->
+<!--                    Date of Billing-->
+<!--                </label>-->
+<!--                &lt;!&ndash;<p class="input-group">&ndash;&gt;-->
+<!--                &lt;!&ndash;<span class="glyphicon glyphicon-th"></span>&ndash;&gt;-->
+                <label for="FormField_Completed"><b>Is this completed?</b></label>
+                <input id="FormField_secondaryApproval" class="form-control" name="FormField_Completed"
+                       cam-variable-type="Boolean"
+                       cam-variable-name="FormField_Completed" type="checkbox" placeholder="Check if complete">
+
                 </p>
                 <script cam-script type="text/form-script">
                     $scope.openFormField_DateBilled = function ($event) {
