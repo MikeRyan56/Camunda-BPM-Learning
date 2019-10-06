@@ -11,7 +11,6 @@
                 camForm.variableManager.fetchVariable('FormField_amount');
                 camForm.variableManager.fetchVariable('FormField_submittedBy');
                 camForm.variableManager.fetchVariable('FormField_description');
-<!--                camForm.variableManager.fetchVariable('FormField_Completed');-->
             });
             camForm.on('variables-restored', function () {
                 $scope.primeApprover = camForm.variableManager.variableValue('FormField_primeApprover');
@@ -39,9 +38,7 @@
                     <li class="list-group-item"><span class="glyphicon glyphicon-user"></span> <b>Submitted By: </b>
                         {{ submittedBy }}
                     </li>
-                    <!--<li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download-->
-                    <!--Invoice: </b>{{ invoiceName }}-->
-                    <!--</li>-->
+
                     <li class="list-group-item"><span class="glyphicon glyphicon-download"></span> <b>Download
                         Invoice: </b><a cam-file-download="invoiceDocument">
                         {{ invoiceName }}</a>
@@ -87,11 +84,7 @@
         </div>
         <div class="row col-md-3" style="margin: 10px">
             <div class="form-horizontal">
-<!--                <label for="FormField_DateBilled">-->
-<!--                    Date of Billing-->
-<!--                </label>-->
-<!--                &lt;!&ndash;<p class="input-group">&ndash;&gt;-->
-<!--                &lt;!&ndash;<span class="glyphicon glyphicon-th"></span>&ndash;&gt;-->
+
                 <label for="FormField_Completed"><strong>Is this completed?</strong></label>
                 <input id="FormField_secondaryApproval" class="form-control" name="FormField_Completed"
                        cam-variable-type="Boolean"
@@ -113,8 +106,7 @@
                 </label>
                 <textarea class="form-control" name="FormField_billingNotes" cam-variable-type="String"
                           cam-variable-name="FormField_billingNotes" type="text" cols="50" rows="8" maxlength="500"></textarea>
-                <!--<input class="form-control" name="FormField_billingNotes" cam-variable-type="String"-->
-                <!--cam-variable-name="FormField_billingNotes" type="text">-->
+
             </div>
         </div>
     </form>
