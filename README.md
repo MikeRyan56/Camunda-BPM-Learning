@@ -23,6 +23,11 @@ Contributors welcomed!
 * Extend form validation via JavaScript
 
 ## Things in the example
+### As of 19.10.05
+* adding sonarcloud
+* cleanup of some of the issues found in sonar
+* fix of bus in ar-processing html template
+
 ### As of 19.6-7.11
 * Change of versioning to Calendar version - YY.MM-Camunda version
 * Update to Camunda 7.11
