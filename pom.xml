@@ -14,7 +14,7 @@
 <parent>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-parent</artifactId>
-	<version>2.2.0.RELEASE</version>
+	<version>2.2.2.RELEASE</version>
 	<relativePath/>
 	<!-- lookup parent from repository -->
 </parent>
@@ -24,9 +24,9 @@
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<java.version>1.8</java.version>
 	<camunda.spring.boot.starter.version>3.3.5</camunda.spring.boot.starter.version>
-	<camundaEngineVersion>7.11.0</camundaEngineVersion>
-	<camundaSpinVersion>1.7.2</camundaSpinVersion>
 	<camundaConnectVersion>1.2.2</camundaConnectVersion>
+	<camundaEngineVersion>7.12.0</camundaEngineVersion>
+	<camundaSpinVersion>1.7.5</camundaSpinVersion>
 	<docker.image.prefix>mikeryan56/learning-camunda</docker.image.prefix>
 </properties>
 
