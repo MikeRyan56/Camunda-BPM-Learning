@@ -23,7 +23,7 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<java.version>1.8</java.version>
-	<camunda.spring.boot.starter.version>3.3.5</camunda.spring.boot.starter.version>
+	<camunda.spring.boot.starter.version>3.4.0</camunda.spring.boot.starter.version>
 	<camundaConnectVersion>1.2.2</camundaConnectVersion>
 	<camundaEngineVersion>7.12.0</camundaEngineVersion>
 	<camundaSpinVersion>1.7.5</camundaSpinVersion>
