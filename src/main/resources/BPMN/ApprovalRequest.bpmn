@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_17il7kt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:process id="GETRestExample" name="GET_RestExample" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start" camunda:initiator="requestor">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="requestGroup" label="requestGroup" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+            <camunda:value id="default" name="Group A" />
+            <camunda:value id="abc" name="Group B" />
+          </camunda:formField>
+          <camunda:formField id="approvalRequest" label="Approval Request" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0ixuuzz</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ixuuzz" sourceRef="StartEvent_1" targetRef="buildURL" />
+    <bpmn:serviceTask id="getData" name="GET Data" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">${url}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="assigneeList">
+              <camunda:script scriptFormat="javascript">var assigneeList = "{}"
+//Fetch Execution Variables
+var resp = connector.getVariable("response");
+var statusCode = connector.getVariable("statusCode");
+
+if (statusCode != 200){
+response = '{"users": ["admin"]}'
+}
+
+// Spin JSON
+var jsonResp = S(resp);
+// Set User List
+var user_list =  jsonResp.prop("users");
+// JSON array with users
+jsonResp.prop("assignee", user_list);</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="HttpRestErrorMessage">
+              <camunda:map>
+                <camunda:entry key="error">something happened</camunda:entry>
+              </camunda:map>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="httpStatus">
+              <camunda:script scriptFormat="javascript">//Fetch Execution Variables
+connector.getVariable("statusCode");</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="restErrorOutput">
+              <camunda:script scriptFormat="javascript">// get error
+var BpmnError = org.camunda.bpm.engine.delegate.BpmnError;
+
+// get status code
+var statusCode = connector.getVariable("statusCode");
+
+if (statusCode !=200){
+    connector.setVariable("httpStatus", statusCode);
+   throw new BpmnError("HttpRestCallFailure", 
+        "HTTP call failed to [" + connector.getVariable(url) + 
+       "]. Status Code: [" + statusCode + 
+       "]. Response: [" + connector.getVariable("response") +  
+       "].");
+}</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ydnr00</bpmn:incoming>
+      <bpmn:incoming>Flow_0avp8zu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g2u46r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="retryTask" name="Retry Task" camunda:asyncBefore="true" camunda:assignee="${requestor}" camunda:candidateGroups="${requestGroup}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="retry" label="Retry" type="boolean" />
+          <camunda:formField id="approvalRequest" label="Approval Request" type="string" defaultValue="${approvalRequest}">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="HttpRestCallFailure" label="HttpRestCallFailure" type="string" defaultValue="${HttpRestCallFailure}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="httpStatus" label="httpStatus" type="string" defaultValue="${httpStatus}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1l7f7in</bpmn:incoming>
+      <bpmn:outgoing>Flow_161h00v</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="Event_0sfftei" attachedToRef="getData">
+      <bpmn:outgoing>Flow_1l7f7in</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0azc4av" errorRef="Error_1mss8dd" camunda:errorCodeVariable="HttpRestCallFailure" camunda:errorMessageVariable="HttpRestErrorMessage" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_1l7f7in" sourceRef="Event_0sfftei" targetRef="retryTask" />
+    <bpmn:exclusiveGateway id="Gateway_1x5oqhj" default="Flow_1ydnr00">
+      <bpmn:incoming>Flow_161h00v</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ydnr00</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00vnv0s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_161h00v" sourceRef="retryTask" targetRef="Gateway_1x5oqhj" />
+    <bpmn:sequenceFlow id="Flow_1ydnr00" sourceRef="Gateway_1x5oqhj" targetRef="getData" />
+    <bpmn:sequenceFlow id="Flow_0g2u46r" sourceRef="getData" targetRef="Activity_13ol2bs" />
+    <bpmn:endEvent id="Event_1rnazwj" name="Complete">
+      <bpmn:incoming>Flow_07ql89y</bpmn:incoming>
+      <bpmn:incoming>Flow_00vnv0s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_07ql89y" sourceRef="Activity_13ol2bs" targetRef="Event_1rnazwj" />
+    <bpmn:sequenceFlow id="Flow_00vnv0s" name="Retry = False" sourceRef="Gateway_1x5oqhj" targetRef="Event_1rnazwj">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${retry==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0avp8zu" sourceRef="buildURL" targetRef="getData" />
+    <bpmn:scriptTask id="buildURL" name="Build URL" scriptFormat="javascript" camunda:resultVariable="url">
+      <bpmn:documentation>concatenate base url to the selected approval group name.</bpmn:documentation>
+      <bpmn:incoming>Flow_0ixuuzz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0avp8zu</bpmn:outgoing>
+      <bpmn:script>// Set Base Url
+var baseUrl = "http://localhost:5000/api/v1/groups/group?groupName=";
+// get environment
+var groupName = execution.getVariable("requestGroup");
+
+if (groupName == ""){
+group="default";
+}
+
+baseUrl.concat(groupName);</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:callActivity id="Activity_13ol2bs" name="Request Approval" calledElement="approveProcess">
+      <bpmn:documentation>Create parrallel approval tasks and once greater than or equal to 50% are completed then all assignments are closed.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:in source="assignee" target="assignee" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0g2u46r</bpmn:incoming>
+      <bpmn:outgoing>Flow_07ql89y</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${assigneeList.prop(&#34;assignee&#34;).elements()}" camunda:elementVariable="assignee">
+        <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">${nrOfCompletedInstances/nrOfInstances &gt;= 0.5}</bpmn:completionCondition>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:callActivity>
+    <bpmn:textAnnotation id="TextAnnotation_1gysovh">
+      <bpmn:text>Request Form</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_17u3x3f" sourceRef="StartEvent_1" targetRef="TextAnnotation_1gysovh" />
+    <bpmn:textAnnotation id="TextAnnotation_1gygmcv">
+      <bpmn:text>Build URL</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0p55q10" sourceRef="buildURL" targetRef="TextAnnotation_1gygmcv" />
+    <bpmn:textAnnotation id="TextAnnotation_0o1u1wa">
+      <bpmn:text>Make GET Rest Call</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1jyssbw" sourceRef="getData" targetRef="TextAnnotation_0o1u1wa" />
+    <bpmn:textAnnotation id="TextAnnotation_0rihidm">
+      <bpmn:text>Parallel Approval</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0ndgdp8" sourceRef="Activity_13ol2bs" targetRef="TextAnnotation_0rihidm" />
+    <bpmn:textAnnotation id="TextAnnotation_098xjs9">
+      <bpmn:text>Flow complete</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_18kcj3i" sourceRef="Event_1rnazwj" targetRef="TextAnnotation_098xjs9" />
+    <bpmn:textAnnotation id="TextAnnotation_0omv515">
+      <bpmn:text>Check If Retry False</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1f68tm5" sourceRef="Gateway_1x5oqhj" targetRef="TextAnnotation_0omv515" />
+    <bpmn:textAnnotation id="TextAnnotation_1qmy9hf">
+      <bpmn:text>Retry Task</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_18gvqb1" sourceRef="retryTask" targetRef="TextAnnotation_1qmy9hf" />
+  </bpmn:process>
+  <bpmn:error id="Error_1mss8dd" name="RestCallError" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="GETRestExample">
+      <bpmndi:BPMNEdge id="Flow_0avp8zu_di" bpmnElement="Flow_0avp8zu">
+        <di:waypoint x="350" y="207" />
+        <di:waypoint x="420" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00vnv0s_di" bpmnElement="Flow_00vnv0s">
+        <di:waypoint x="595" y="380" />
+        <di:waypoint x="850" y="380" />
+        <di:waypoint x="850" y="225" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="690" y="393" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07ql89y_di" bpmnElement="Flow_07ql89y">
+        <di:waypoint x="710" y="207" />
+        <di:waypoint x="832" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g2u46r_di" bpmnElement="Flow_0g2u46r">
+        <di:waypoint x="520" y="207" />
+        <di:waypoint x="610" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ydnr00_di" bpmnElement="Flow_1ydnr00">
+        <di:waypoint x="570" y="355" />
+        <di:waypoint x="570" y="310" />
+        <di:waypoint x="510" y="310" />
+        <di:waypoint x="510" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_161h00v_di" bpmnElement="Flow_161h00v">
+        <di:waypoint x="470" y="380" />
+        <di:waypoint x="545" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l7f7in_di" bpmnElement="Flow_1l7f7in">
+        <di:waypoint x="420" y="265" />
+        <di:waypoint x="420" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ixuuzz_di" bpmnElement="Flow_0ixuuzz">
+        <di:waypoint x="188" y="207" />
+        <di:waypoint x="250" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="152" y="189" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="232" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ianvo7_di" bpmnElement="getData">
+        <dc:Bounds x="420" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zdxxkg_di" bpmnElement="retryTask">
+        <dc:Bounds x="370" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1x5oqhj_di" bpmnElement="Gateway_1x5oqhj" isMarkerVisible="true">
+        <dc:Bounds x="545" y="355" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1rnazwj_di" bpmnElement="Event_1rnazwj" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="832" y="189" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="876" y="213" width="48" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s5ey5j_di" bpmnElement="buildURL">
+        <dc:Bounds x="250" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m3k1e6_di" bpmnElement="Activity_13ol2bs">
+        <dc:Bounds x="610" y="167" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1gysovh_di" bpmnElement="TextAnnotation_1gysovh">
+        <dc:Bounds x="140" y="85" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1gygmcv_di" bpmnElement="TextAnnotation_1gygmcv">
+        <dc:Bounds x="290" y="85" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0o1u1wa_di" bpmnElement="TextAnnotation_0o1u1wa">
+        <dc:Bounds x="430" y="85" width="150" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0rihidm_di" bpmnElement="TextAnnotation_0rihidm">
+        <dc:Bounds x="640" y="85" width="120" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_098xjs9_di" bpmnElement="TextAnnotation_098xjs9">
+        <dc:Bounds x="820" y="85" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0omv515_di" bpmnElement="TextAnnotation_0omv515">
+        <dc:Bounds x="610" y="320" width="100" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1qmy9hf_di" bpmnElement="TextAnnotation_1qmy9hf">
+        <dc:Bounds x="250" y="295" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_08gzxfd_di" bpmnElement="Event_0sfftei">
+        <dc:Bounds x="402" y="229" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_17u3x3f_di" bpmnElement="Association_17u3x3f">
+        <di:waypoint x="173" y="190" />
+        <di:waypoint x="187" y="115" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0p55q10_di" bpmnElement="Association_0p55q10">
+        <di:waypoint x="315" y="167" />
+        <di:waypoint x="334" y="115" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1jyssbw_di" bpmnElement="Association_1jyssbw">
+        <di:waypoint x="474" y="167" />
+        <di:waypoint x="479" y="115" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0ndgdp8_di" bpmnElement="Association_0ndgdp8">
+        <di:waypoint x="671" y="167" />
+        <di:waypoint x="686" y="115" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_18kcj3i_di" bpmnElement="Association_18kcj3i">
+        <di:waypoint x="853" y="190" />
+        <di:waypoint x="867" y="115" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1f68tm5_di" bpmnElement="Association_1f68tm5">
+        <di:waypoint x="587" y="372" />
+        <di:waypoint x="610" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_18gvqb1_di" bpmnElement="Association_18gvqb1">
+        <di:waypoint x="370" y="351" />
+        <di:waypoint x="326" y="325" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
