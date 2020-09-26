@@ -24,7 +24,7 @@
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<java.version>1.8</java.version>
 	<camunda.spring.boot.starter.version>7.13.0</camunda.spring.boot.starter.version>
-	<camundaConnectVersion>1.4.0</camundaConnectVersion>
+	<camundaConnectVersion>1.5.0</camundaConnectVersion>
 	<camundaEngineVersion>7.13.0</camundaEngineVersion>
 	<camundaSpinVersion>1.10.0</camundaSpinVersion>
 	<docker.image.prefix>mikeryan56/learning-camunda</docker.image.prefix>
