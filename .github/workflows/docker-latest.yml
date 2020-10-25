@@ -18,7 +18,7 @@ jobs:
           ls -l
           echo 'Docker Login'
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-#          cd src
+          # cd app
           CAL_VER=$(date '+%Y-%m-%d')
           echo 'Docker Build'
           docker build . -t mikeryan56/learning-camunda:$CAL_VER
